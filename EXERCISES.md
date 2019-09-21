@@ -21,7 +21,7 @@ More information:
 
 Difficulty: 3 out of 5
 
-Expand the session to hold any data type. 
+Expand the session to hold any data type, so the UBST can hold any type inside (e.g., long, bool, struct).
 
 ## [ubst_search] Searching in an Unbalanced Binary Search Tree
 

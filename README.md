@@ -16,6 +16,9 @@ make test
 
 ## Available sessions
 
-Each folder is a session. Therefore, to review the available sessions, see which folders are present.
+Each folder is a started session (might be complete or not). Therefore, to review the available sessions, see which folders are present.
 
+## Pending sessions
+
+See [EXERCISES.md](EXERCISES.md)
 

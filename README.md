@@ -14,3 +14,8 @@ make test
 
 (Optionally, you can replace `new_session` with a provided name).
 
+## Available sessions
+
+Each folder is a session. Therefore, to review the available sessions, see which folders are present.
+
+

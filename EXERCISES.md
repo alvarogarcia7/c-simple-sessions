@@ -33,6 +33,20 @@ Given an UBST, find whether the element given is in the tree. This should be don
 
 Signature: `bool bst_contains(ubst* ubst, int needle);`
 
+## [quicksort] Quicksort Algorithm
+
+Difficulty: 3 out of 5
+
+Implement the [Quicksort](https://en.wikipedia.org/wiki/Quicksort) algorithm, for integers.
+
+Calculate the best-case, worst-case performance, both in time complexity and in space complexity
+
+### Extra 1: Hold any type
+
+Difficulty: 3 out of 5
+
+Expand the session, making the algorithm able to sort any data type.
+
 # Legend used
 
 Naming of the session

@@ -4,7 +4,9 @@ Each folder represents a programming session in C.
 
 ## Starting a new session
 
-To start a new session, duplicate the folder `skeleton`:
+Note: there are multiple skeleton folders: they start with `skeleton.*`. E.g., `skeleton`, `skeleton_cmake`.
+
+To start a new session with the `skeleton` folder, duplicate the folder:
 
 ```
 cp -R skeleton new_session

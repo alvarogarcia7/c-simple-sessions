@@ -163,11 +163,25 @@ test_rand(const MunitParameter params[], void *user_data) {
 
 static MunitResult
 new_list_is_empty_by_default(const MunitParameter params[], void *user_data) {
-    int_list* list = list_new();
+    int_list *list = list_new();
 
     int64_t size = list_size(list);
 
     munit_assert_int64(size, ==, 0);
+
+    return MUNIT_OK;
+}
+
+
+static MunitResult
+add_when_the_list_is_empty__adds_it_to_the_last_position(const MunitParameter params[], void *user_data) {
+    int_list *list = list_new();
+
+    list_add(list, 1);
+
+    int64_t size = list_size(list);
+
+    munit_assert_int64(size, ==, 1);
 
     return MUNIT_OK;
 }
@@ -198,18 +212,14 @@ test_compare_tear_down(void *fixture) {
     munit_assert_ptr_equal(fixture, (void *) (uintptr_t) 0xdeadbeef);
 }
 
-static MunitTest example_test_suite[] = {
-        {(char *) "",       test_rand,       NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {NULL, NULL,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
-};
-
 static MunitTest current_suite[] = {
-        {(char *) "new list",       new_list_is_empty_by_default,       NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
+        {(char *) "new list",          new_list_is_empty_by_default,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding when empty", add_when_the_list_is_empty__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {NULL, NULL,                                                                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 
 static MunitSuite other_suites[] = {
-        {NULL, NULL,                              NULL, 0, MUNIT_SUITE_OPTION_NONE}
+        {NULL, NULL, NULL, 0, MUNIT_SUITE_OPTION_NONE}
 };
 
 /* Now we'll actually declare the test suite.  You could do this in

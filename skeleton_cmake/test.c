@@ -177,22 +177,6 @@ test_rand(const MunitParameter params[], void* user_data) {
     }                                                 \
     assert(actual == expected);                       \
 
-static MunitResult
-sha_512_no_input(const MunitParameter params[], void *user_data) {
-    unsigned long result[] = {0, 0, 0, 0};
-    unsigned long expected[] = {0xc672b8d1ef56ed28,
-                                0xab87c3622c511406,
-                                0x9bdd3ad7b8f97374,
-                                0x98d0c01ecef0967a};
-    sha512256((const unsigned char *)"", 0, (unsigned char*) result);
-
-    print_and_assert(result[0], 0xc672b8d1ef56ed28, "actual: 0x%lx\n");
-    print_and_assert(result[1], 0xab87c3622c511406, "actual: 0x%lx\n");
-    print_and_assert(result[2], 0x9bdd3ad7b8f97374, "actual: 0x%lx\n");
-    print_and_assert(result[3], 0x98d0c01ecef0967a, "actual: 0x%lx\n");
-    munit_assert_memory_equal(sizeof(result)/sizeof(expected[0]), result, expected);
-    return MUNIT_OK;
-}
 
 /* This test case shows how to accept parameters.  We'll see how to
  * specify them soon.

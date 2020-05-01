@@ -20,8 +20,7 @@ int_list *list_new() {
 }
 
 int_list *list_null_element() {
-    int_list *result = calloc(1, sizeof(int_list));
-    result->next = NULL;
+    int_list *result = list_new_element(0);
     return result;
 }
 

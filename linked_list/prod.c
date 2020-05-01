@@ -5,14 +5,7 @@ int_list *list_null_element();
 
 int_list *list_new_element(int64_t new_value);
 
-int64_t advance_to_the_end(int_list *list) {
-    int64_t result = 0;
-    while (list->next != NULL) {
-        list = list->next;
-        result++;
-    }
-    return result;
-}
+int64_t advance_to_the_end(int_list *list);
 
 int_list *list_new() {
     int_list *result = list_null_element();
@@ -41,4 +34,13 @@ int_list *list_new_element(int64_t new_value) {
     next->value = new_value;
     next->next = NULL;
     return next;
+}
+
+int64_t advance_to_the_end(int_list *list) {
+    int64_t result = 0;
+    while (list->next != NULL) {
+        list = list->next;
+        result++;
+    }
+    return result;
 }

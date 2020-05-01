@@ -1,19 +1,18 @@
 #include <stdlib.h>
 #include "prod.h"
 
+// Private section
+
 int_list *list_null_element();
 
 int_list *list_new_element(int64_t new_value);
 
 int64_t advance_to_the_end(int_list *list);
 
+// Public section implementation
+
 int_list *list_new() {
     int_list *result = list_null_element();
-    return result;
-}
-
-int_list *list_null_element() {
-    int_list *result = list_new_element(0);
     return result;
 }
 
@@ -27,6 +26,13 @@ void list_add(int_list *list, int64_t new_value) {
         list = list->next;
     }
     list->next = list_new_element(new_value);
+}
+
+// Private section implementation
+
+int_list *list_null_element() {
+    int_list *result = list_new_element(0);
+    return result;
 }
 
 int_list *list_new_element(int64_t new_value) {

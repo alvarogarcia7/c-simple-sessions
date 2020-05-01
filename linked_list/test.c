@@ -187,15 +187,27 @@ add_when_the_list_is_empty__adds_it_to_the_last_position(const MunitParameter pa
 }
 
 static MunitResult
+size_does_not_modify_the_list(const MunitParameter params[], void *user_data) {
+    int_list *list = list_new();
+
+    list_add(list, 1);
+
+    munit_assert_int64(list_size(list), ==, 1);
+
+    munit_assert_int64(list_size(list), ==, 1);
+
+    return MUNIT_OK;
+}
+
+static MunitResult
 add_when_the_list_has_size_1__adds_it_to_the_last_position(const MunitParameter params[], void *user_data) {
     int_list *list = list_new();
 
     list_add(list, 1);
     list_add(list, 2);
 
-    int64_t size = list_size(list);
 
-    munit_assert_int64(size, ==, 2);
+    munit_assert_int64(list_size(list), ==, 2);
 
     return MUNIT_OK;
 }
@@ -227,10 +239,11 @@ test_compare_tear_down(void *fixture) {
 }
 
 static MunitTest current_suite[] = {
-        {(char *) "new list",          new_list_is_empty_by_default,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "adding when empty", add_when_the_list_is_empty__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "adding when size 1", add_when_the_list_has_size_1__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {NULL, NULL,                                                                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
+        {(char *) "new list",                      new_list_is_empty_by_default,                               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "size does not modify the list", size_does_not_modify_the_list,                              NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding when empty",             add_when_the_list_is_empty__adds_it_to_the_last_position,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding when size 1",            add_when_the_list_has_size_1__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {NULL, NULL,                                                                                           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 
 static MunitSuite other_suites[] = {
@@ -240,7 +253,7 @@ static MunitSuite other_suites[] = {
 /* Now we'll actually declare the test suite.  You could do this in
  * the main function, or on the heap, or whatever you want. */
 static const MunitSuite test_suite = {
-        (char *) "linked_list/",
+        (char *) "linkedList/",
         current_suite,
         other_suites,
         1,

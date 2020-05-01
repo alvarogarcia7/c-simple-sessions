@@ -1,11 +1,12 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "prod.h"
 
 // Private section
 
 int_list *list_null_element();
 
-int_list *list_new_element(int64_t new_value);
+int_list *list_new_element(int32_t new_value);
 
 int_list *advance_to_the_end(int_list *list, int64_t *size);
 
@@ -22,10 +23,32 @@ int64_t list_size(int_list *list) {
     return size;
 }
 
-void list_add(int_list *list, int64_t new_value) {
+void list_add(int_list *list, int32_t new_value) {
     int64_t size = 0;
     list = advance_to_the_end(list, &size);
-    list->next = list_new_element(new_value);
+    list->value = new_value;
+    list->next = list_null_element();
+}
+
+void list_add_at(int_list *list, int64_t position, int32_t value) {
+    int64_t i =0;
+    while (list->next != NULL && i < position - 1) {
+        list = list->next;
+        i++;
+    }
+    int_list *previous_next = list->next;
+    list->next = list_null_element();
+    list->next->value = value;
+    list->next->next = previous_next;
+}
+
+int32_t list_at(int_list *list, int64_t position) {
+    int_list *llist = list;
+    while (llist->next != NULL && position > 0) {
+        llist = llist->next;
+        position--;
+    }
+    return llist->value;
 }
 
 // Private section implementation
@@ -35,7 +58,7 @@ int_list *list_null_element() {
     return result;
 }
 
-int_list *list_new_element(int64_t new_value) {
+int_list *list_new_element(int32_t new_value) {
     int_list *next = calloc(1, sizeof(int_list));
     next->value = new_value;
     next->next = NULL;
@@ -43,12 +66,10 @@ int_list *list_new_element(int64_t new_value) {
 }
 
 int_list *advance_to_the_end(int_list *list, int64_t *size) {
-    int64_t result = 0;
     while (list->next != NULL) {
         list = list->next;
-        result++;
+        (*size)++;
     }
-    *size = result;
     return list;
 }
 

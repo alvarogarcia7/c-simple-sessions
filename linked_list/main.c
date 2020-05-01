@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include "prod.h"
 
+
 int main() {
-    printf("%d", 0);
+    int_list *list = list_new();
+
+    list_add(list, 1);
+
+    printf("size = %lld\n", list_size(list));
     return 0;
 }

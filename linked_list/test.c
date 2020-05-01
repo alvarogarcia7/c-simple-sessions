@@ -179,10 +179,8 @@ add_when_the_list_is_empty__adds_it_to_the_last_position(const MunitParameter pa
 
     list_add(list, 1);
 
-    int64_t size = list_size(list);
-
-    munit_assert_int64(size, ==, 1);
-
+    munit_assert_int64(list_at(list, 0), ==, 1);
+    munit_assert_int64(list_size(list), ==, 1);
     return MUNIT_OK;
 }
 
@@ -206,8 +204,23 @@ add_when_the_list_has_size_1__adds_it_to_the_last_position(const MunitParameter 
     list_add(list, 1);
     list_add(list, 2);
 
-
     munit_assert_int64(list_size(list), ==, 2);
+    munit_assert_int64(list_at(list, 0), ==, 1);
+    munit_assert_int64(list_at(list, 1), ==, 2);
+
+    return MUNIT_OK;
+}
+
+static MunitResult
+can_add_at_a_specific_position(const MunitParameter params[], void *user_data) {
+    int_list *list = list_new();
+    list_add(list, 0);
+    list_add(list, 2);
+
+    list_add_at(list, 1, 1);
+
+    munit_assert_int64(list_size(list), ==, 3);
+    munit_assert_int64(list_at(list, 1), ==, 1);
 
     return MUNIT_OK;
 }
@@ -243,6 +256,7 @@ static MunitTest current_suite[] = {
         {(char *) "size does not modify the list", size_does_not_modify_the_list,                              NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "adding when empty",             add_when_the_list_is_empty__adds_it_to_the_last_position,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "adding when size 1",            add_when_the_list_has_size_1__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding at position",            can_add_at_a_specific_position,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {NULL, NULL,                                                                                           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 

@@ -1,6 +1,10 @@
 #include <stdlib.h>
 #include "prod.h"
 
+int_list *list_null_element();
+
+int_list *list_new_element(int64_t new_value);
+
 int64_t advance_to_the_end(int_list *list) {
     int64_t result = 0;
     while (list->next != NULL) {
@@ -11,9 +15,14 @@ int64_t advance_to_the_end(int_list *list) {
 }
 
 int_list *list_new() {
-    int_list *p = calloc(1, sizeof(int_list));
-    p->next = NULL;
-    return p;
+    int_list *result = list_null_element();
+    return result;
+}
+
+int_list *list_null_element() {
+    int_list *result = calloc(1, sizeof(int_list));
+    result->next = NULL;
+    return result;
 }
 
 int64_t list_size(int_list *list) {
@@ -25,8 +34,12 @@ void list_add(int_list *list, int64_t new_value) {
     while (list->next != NULL) {
         list = list->next;
     }
+    list->next = list_new_element(new_value);
+}
+
+int_list *list_new_element(int64_t new_value) {
     int_list *next = calloc(1, sizeof(int_list));
     next->value = new_value;
     next->next = NULL;
-    list->next = next;
+    return next;
 }

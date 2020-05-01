@@ -186,6 +186,20 @@ add_when_the_list_is_empty__adds_it_to_the_last_position(const MunitParameter pa
     return MUNIT_OK;
 }
 
+static MunitResult
+add_when_the_list_has_size_1__adds_it_to_the_last_position(const MunitParameter params[], void *user_data) {
+    int_list *list = list_new();
+
+    list_add(list, 1);
+    list_add(list, 2);
+
+    int64_t size = list_size(list);
+
+    munit_assert_int64(size, ==, 2);
+
+    return MUNIT_OK;
+}
+
 #define    print_and_assert(actual, expected, format) \
     if(actual != expected) {                          \
         printf(format, actual);                       \
@@ -215,6 +229,7 @@ test_compare_tear_down(void *fixture) {
 static MunitTest current_suite[] = {
         {(char *) "new list",          new_list_is_empty_by_default,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "adding when empty", add_when_the_list_is_empty__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding when size 1", add_when_the_list_has_size_1__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {NULL, NULL,                                                                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 

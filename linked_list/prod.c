@@ -14,19 +14,25 @@ int_list *list_new() {
     return result;
 }
 
-int64_t list_size(int_list *list) {
+int_list *advance_to_the_end(int_list *list, int64_t *size) {
     int64_t result = 0;
     while (list->next != NULL) {
         list = list->next;
         result++;
     }
-    return result;
+    *size = result;
+    return list;
+}
+
+int64_t list_size(int_list *list) {
+    int64_t size = 0;
+    advance_to_the_end(list, &size);
+    return size;
 }
 
 void list_add(int_list *list, int64_t new_value) {
-    while (list->next != NULL) {
-        list = list->next;
-    }
+    int64_t size = 0;
+    list = advance_to_the_end(list, &size);
     list->next = list_new_element(new_value);
 }
 

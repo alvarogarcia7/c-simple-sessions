@@ -277,6 +277,73 @@ can_add_after_deleting_completely(const MunitParameter params[], void *user_data
     return MUNIT_OK;
 }
 
+
+static MunitResult
+compare_lists_that_are_equal(const MunitParameter params[], void *user_data) {
+    int_list *list1 = list_new();
+    list_add(list1, 10);
+
+    int_list *list2 = list_new();
+    list_add(list2, 10);
+    munit_assert_true(list_compare(list1, list2));
+    return MUNIT_OK;
+}
+
+static MunitResult
+compare_lists_left_is_longer(const MunitParameter params[], void *user_data) {
+    int_list *list1 = list_new();
+    list_add(list1, 10);
+    list_add(list1, 20);
+
+    int_list *list2 = list_new();
+    list_add(list2, 10);
+    munit_assert_false(list_compare(list1, list2));
+    return MUNIT_OK;
+}
+
+static MunitResult
+compare_lists_right_is_longer(const MunitParameter params[], void *user_data) {
+    int_list *list1 = list_new();
+    list_add(list1, 10);
+
+    int_list *list2 = list_new();
+    list_add(list2, 10);
+    list_add(list2, 20);
+    munit_assert_false(list_compare(list1, list2));
+    return MUNIT_OK;
+}
+
+static MunitResult
+compare_lists_left_is_longer_right_is_empty(const MunitParameter params[], void *user_data) {
+    int_list *list1 = list_new();
+    list_add(list1, 10);
+    list_add(list1, 20);
+
+    int_list *list2 = list_new();
+    munit_assert_false(list_compare(list1, list2));
+    return MUNIT_OK;
+}
+
+static MunitResult
+compare_lists_right_is_longer_left_is_empty(const MunitParameter params[], void *user_data) {
+    int_list *list1 = list_new();
+
+    int_list *list2 = list_new();
+    list_add(list2, 10);
+    list_add(list2, 20);
+    munit_assert_false(list_compare(list1, list2));
+    return MUNIT_OK;
+}
+
+static MunitResult
+compare_lists_both_empty(const MunitParameter params[], void *user_data) {
+    int_list *list1 = list_new();
+
+    int_list *list2 = list_new();
+    munit_assert_true(list_compare(list1, list2));
+    return MUNIT_OK;
+}
+
 #define    print_and_assert(actual, expected, format) \
     if(actual != expected) {                          \
         printf(format, actual);                       \
@@ -304,16 +371,22 @@ test_compare_tear_down(void *fixture) {
 }
 
 static MunitTest current_suite[] = {
-        {(char *) "new list",                             new_list_is_empty_by_default,                               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "size does not modify the list",        size_does_not_modify_the_list,                              NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "adding when empty (because deleted)",  can_add_after_deleting_completely,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "adding when empty",                    add_when_the_list_is_empty__adds_it_to_the_last_position,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "adding when size 1",                   add_when_the_list_has_size_1__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "adding at position",                   can_add_at_a_specific_position,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "delete by position",                   can_delete_by_position,                                     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "delete by position (at the end)",      can_delete_by_position__at_the_end,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "delete by position (at the only one)", can_delete_by_position__at_the_end_when_the_list_is_empty,  NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {NULL, NULL,                                                                                                  NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
+        {(char *) "new list",                                    new_list_is_empty_by_default,                               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "size does not modify the list",               size_does_not_modify_the_list,                              NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding when empty (because deleted)",         can_add_after_deleting_completely,                          NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding when empty",                           add_when_the_list_is_empty__adds_it_to_the_last_position,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding when size 1",                          add_when_the_list_has_size_1__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding at position",                          can_add_at_a_specific_position,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "delete by position",                          can_delete_by_position,                                     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "delete by position (at the end)",             can_delete_by_position__at_the_end,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "delete by position (at the only one)",        can_delete_by_position__at_the_end_when_the_list_is_empty,  NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "compare_lists_that_are_equal",                compare_lists_that_are_equal,                               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "compare_lists_left_is_longer",                compare_lists_left_is_longer,                               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "compare_lists_right_is_longer",               compare_lists_right_is_longer,                              NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "compare_lists_left_is_longer_right_is_empty", compare_lists_left_is_longer_right_is_empty,                NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "compare_lists_right_is_longer_left_is_empty", compare_lists_right_is_longer_left_is_empty,                NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "compare_lists_both_empty",                    compare_lists_both_empty,                                   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {NULL, NULL,                                                                                                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 
 static MunitSuite other_suites[] = {

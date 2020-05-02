@@ -61,6 +61,37 @@ void list_delete(int_list *list, int64_t position) {
     list->next = list->next->next;
 }
 
+bool list_compare(int_list *list1, int_list *list2) {
+    bool equals = true;
+    while (true) {
+        if (list1->next == NULL && list2->next == NULL) {
+            break;
+        } else if (list1->next != NULL && list2->next != NULL) {
+            if (list1->value == list2->value) {
+                list1 = list1->next;
+                list2 = list2->next;
+            } else {
+                equals = false;
+                break;
+            }
+        } else {
+            equals = false;
+            break;
+        }
+    }
+    // Constant time
+    while (list1->next != NULL) {
+        list1 = list1->next;
+    }
+    while (list2->next != NULL) {
+        list2 = list2->next;
+    }
+    //End constant time
+
+    return equals;
+}
+
+
 // Private section implementation
 
 int_list *list_null_element() {

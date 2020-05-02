@@ -43,7 +43,9 @@
 #  define munit_int64_t  __int64
 #  define munit_uint64_t unsigned __int64
 #else
+
 #  include <stdint.h>
+
 #  define munit_int8_t   int8_t
 #  define munit_uint8_t  uint8_t
 #  define munit_int16_t  int16_t
@@ -104,7 +106,9 @@
 #    define PRIu64 "I64u"
 #  endif
 #else
+
 #  include <inttypes.h>
+
 #endif
 
 #if !defined(munit_bool)
@@ -161,7 +165,7 @@ extern "C" {
 #  define MUNIT_NO_RETURN
 #endif
 
-#if defined(_MSC_VER) &&  (_MSC_VER >= 1500)
+#if defined(_MSC_VER) && (_MSC_VER >= 1500)
 #  define MUNIT__PUSH_DISABLE_MSVC_C4127 __pragma(warning(push)) __pragma(warning(disable:4127))
 #  define MUNIT__POP_DISABLE_MSVC_C4127 __pragma(warning(pop))
 #else
@@ -170,10 +174,10 @@ extern "C" {
 #endif
 
 typedef enum {
-  MUNIT_LOG_DEBUG,
-  MUNIT_LOG_INFO,
-  MUNIT_LOG_WARNING,
-  MUNIT_LOG_ERROR
+    MUNIT_LOG_DEBUG,
+    MUNIT_LOG_INFO,
+    MUNIT_LOG_WARNING,
+    MUNIT_LOG_ERROR
 } MunitLogLevel;
 
 #if defined(__GNUC__) && !defined(__MINGW32__)
@@ -183,7 +187,7 @@ typedef enum {
 #endif
 
 MUNIT_PRINTF(4, 5)
-void munit_logf_ex(MunitLogLevel level, const char* filename, int line, const char* format, ...);
+void munit_logf_ex(MunitLogLevel level, const char *filename, int line, const char *format, ...);
 
 #define munit_logf(level, format, ...) \
   munit_logf_ex(level, __FILE__, __LINE__, format, __VA_ARGS__)
@@ -193,7 +197,7 @@ void munit_logf_ex(MunitLogLevel level, const char* filename, int line, const ch
 
 MUNIT_NO_RETURN
 MUNIT_PRINTF(3, 4)
-void munit_errorf_ex(const char* filename, int line, const char* format, ...);
+void munit_errorf_ex(const char *filename, int line, const char *format, ...);
 
 #define munit_errorf(format, ...) \
   munit_errorf_ex(__FILE__, __LINE__, format, __VA_ARGS__)
@@ -300,13 +304,14 @@ void munit_errorf_ex(const char* filename, int line, const char* format, ...);
       (munit_tmp_a_ - munit_tmp_b_); \
     if (MUNIT_UNLIKELY(munit_tmp_diff_ > 1e-##precision)) { \
       munit_errorf("assertion failed: %s == %s (%0." #precision "g == %0." #precision "g)", \
-		   #a, #b, munit_tmp_a_, munit_tmp_b_); \
+           #a, #b, munit_tmp_a_, munit_tmp_b_); \
     } \
     MUNIT__PUSH_DISABLE_MSVC_C4127 \
   } while (0) \
   MUNIT__POP_DISABLE_MSVC_C4127
 
 #include <string.h>
+
 #define munit_assert_string_equal(a, b) \
   do { \
     const char* munit_tmp_a_ = a; \
@@ -378,7 +383,7 @@ void munit_errorf_ex(const char* filename, int line, const char* format, ...);
 
 /*** Memory allocation ***/
 
-void* munit_malloc_ex(const char* filename, int line, size_t size);
+void *munit_malloc_ex(const char *filename, int line, size_t size);
 
 #define munit_malloc(size) \
   munit_malloc_ex(__FILE__, __LINE__, (size))
@@ -395,72 +400,78 @@ void* munit_malloc_ex(const char* filename, int line, size_t size);
 /*** Random number generation ***/
 
 void munit_rand_seed(munit_uint32_t seed);
+
 munit_uint32_t munit_rand_uint32(void);
+
 int munit_rand_int_range(int min, int max);
+
 double munit_rand_double(void);
+
 void munit_rand_memory(size_t size, munit_uint8_t buffer[MUNIT_ARRAY_PARAM(size)]);
 
 /*** Tests and Suites ***/
 
 typedef enum {
-  /* Test successful */
-  MUNIT_OK,
-  /* Test failed */
-  MUNIT_FAIL,
-  /* Test was skipped */
-  MUNIT_SKIP,
-  /* Test failed due to circumstances not intended to be tested
-   * (things like network errors, invalid parameter value, failure to
-   * allocate memory in the test harness, etc.). */
-  MUNIT_ERROR
+    /* Test successful */
+    MUNIT_OK,
+    /* Test failed */
+    MUNIT_FAIL,
+    /* Test was skipped */
+    MUNIT_SKIP,
+    /* Test failed due to circumstances not intended to be tested
+     * (things like network errors, invalid parameter value, failure to
+     * allocate memory in the test harness, etc.). */
+    MUNIT_ERROR
 } MunitResult;
 
 typedef struct {
-  char*  name;
-  char** values;
+    char *name;
+    char **values;
 } MunitParameterEnum;
 
 typedef struct {
-  char* name;
-  char* value;
+    char *name;
+    char *value;
 } MunitParameter;
 
-const char* munit_parameters_get(const MunitParameter params[], const char* key);
+const char *munit_parameters_get(const MunitParameter params[], const char *key);
 
 typedef enum {
-  MUNIT_TEST_OPTION_NONE             = 0,
-  MUNIT_TEST_OPTION_SINGLE_ITERATION = 1 << 0,
-  MUNIT_TEST_OPTION_TODO             = 1 << 1
+    MUNIT_TEST_OPTION_NONE = 0,
+    MUNIT_TEST_OPTION_SINGLE_ITERATION = 1 << 0,
+    MUNIT_TEST_OPTION_TODO = 1 << 1
 } MunitTestOptions;
 
-typedef MunitResult (* MunitTestFunc)(const MunitParameter params[], void* user_data_or_fixture);
-typedef void*       (* MunitTestSetup)(const MunitParameter params[], void* user_data);
-typedef void        (* MunitTestTearDown)(void* fixture);
+typedef MunitResult (*MunitTestFunc)(const MunitParameter params[], void *user_data_or_fixture);
+
+typedef void *(*MunitTestSetup)(const MunitParameter params[], void *user_data);
+
+typedef void        (*MunitTestTearDown)(void *fixture);
 
 typedef struct {
-  char*               name;
-  MunitTestFunc       test;
-  MunitTestSetup      setup;
-  MunitTestTearDown   tear_down;
-  MunitTestOptions    options;
-  MunitParameterEnum* parameters;
+    char *name;
+    MunitTestFunc test;
+    MunitTestSetup setup;
+    MunitTestTearDown tear_down;
+    MunitTestOptions options;
+    MunitParameterEnum *parameters;
 } MunitTest;
 
 typedef enum {
-  MUNIT_SUITE_OPTION_NONE = 0
+    MUNIT_SUITE_OPTION_NONE = 0
 } MunitSuiteOptions;
 
 typedef struct MunitSuite_ MunitSuite;
 
 struct MunitSuite_ {
-  char*             prefix;
-  MunitTest*        tests;
-  MunitSuite*       suites;
-  unsigned int      iterations;
-  MunitSuiteOptions options;
+    char *prefix;
+    MunitTest *tests;
+    MunitSuite *suites;
+    unsigned int iterations;
+    MunitSuiteOptions options;
 };
 
-int munit_suite_main(const MunitSuite* suite, void* user_data, int argc, char* const argv[MUNIT_ARRAY_PARAM(argc + 1)]);
+int munit_suite_main(const MunitSuite *suite, void *user_data, int argc, char *const argv[MUNIT_ARRAY_PARAM(argc + 1)]);
 
 /* Note: I'm not very happy with this API; it's likely to change if I
  * figure out something better.  Suggestions welcome. */
@@ -468,14 +479,17 @@ int munit_suite_main(const MunitSuite* suite, void* user_data, int argc, char* c
 typedef struct MunitArgument_ MunitArgument;
 
 struct MunitArgument_ {
-  char* name;
-  munit_bool (* parse_argument)(const MunitSuite* suite, void* user_data, int* arg, int argc, char* const argv[MUNIT_ARRAY_PARAM(argc + 1)]);
-  void (* write_help)(const MunitArgument* argument, void* user_data);
+    char *name;
+
+    munit_bool (*parse_argument)(const MunitSuite *suite, void *user_data, int *arg, int argc,
+                                 char *const argv[MUNIT_ARRAY_PARAM(argc + 1)]);
+
+    void (*write_help)(const MunitArgument *argument, void *user_data);
 };
 
-int munit_suite_main_custom(const MunitSuite* suite,
-                            void* user_data,
-                            int argc, char* const argv[MUNIT_ARRAY_PARAM(argc + 1)],
+int munit_suite_main_custom(const MunitSuite *suite,
+                            void *user_data,
+                            int argc, char *const argv[MUNIT_ARRAY_PARAM(argc + 1)],
                             const MunitArgument arguments[]);
 
 #if defined(MUNIT_ENABLE_ASSERT_ALIASES)

@@ -24,13 +24,13 @@
 /* Tests are functions that return void, and take a single void*
  * parameter.  We'll get to what that parameter is later. */
 static MunitResult
-test_compare(const MunitParameter params[], void* data) {
+test_compare(const MunitParameter params[], void *data) {
     /* We'll use these later */
     const unsigned char val_uchar = 'b';
     const short val_short = 1729;
     double pi = 3.141592654;
-    char* stewardesses = "stewardesses";
-    char* most_fun_word_to_type;
+    char *stewardesses = "stewardesses";
+    char *most_fun_word_to_type;
 
     /* These are just to silence compiler warnings about the parameters
      * being unused. */
@@ -116,13 +116,13 @@ test_compare(const MunitParameter params[], void* data) {
      * Note that the casting isn't usually required; if you give this
      * function a real pointer (instead of a number like 0xdeadbeef) it
      * would work as expected. */
-    munit_assert_ptr_equal(data, (void*)(uintptr_t)0xdeadbeef);
+    munit_assert_ptr_equal(data, (void *) (uintptr_t) 0xdeadbeef);
 
     return MUNIT_OK;
 }
 
 static MunitResult
-test_rand(const MunitParameter params[], void* user_data) {
+test_rand(const MunitParameter params[], void *user_data) {
     int random_int;
     double random_dbl;
     munit_uint8_t data[5];
@@ -187,9 +187,9 @@ test_rand(const MunitParameter params[], void* user_data) {
  * CLI to have the harness simply choose one variation at random
  * instead of running them all. */
 static MunitResult
-test_parameters(const MunitParameter params[], void* user_data) {
-    const char* foo;
-    const char* bar;
+test_parameters(const MunitParameter params[], void *user_data) {
+    const char *foo;
+    const char *bar;
 
     (void) user_data;
 
@@ -239,51 +239,51 @@ test_parameters(const MunitParameter params[], void* user_data) {
 /* The setup function, if you provide one, for a test will be run
  * before the test, and the return value will be passed as the sole
  * parameter to the test function. */
-static void*
-test_compare_setup(const MunitParameter params[], void* user_data) {
+static void *
+test_compare_setup(const MunitParameter params[], void *user_data) {
     (void) params;
 
     munit_assert_string_equal(user_data, "µnit");
-    return (void*) (uintptr_t) 0xdeadbeef;
+    return (void *) (uintptr_t) 0xdeadbeef;
 }
 
 /* To clean up after a test, you can use a tear down function.  The
  * fixture argument is the value returned by the setup function
  * above. */
 static void
-test_compare_tear_down(void* fixture) {
-    munit_assert_ptr_equal(fixture, (void*)(uintptr_t)0xdeadbeef);
+test_compare_tear_down(void *fixture) {
+    munit_assert_ptr_equal(fixture, (void *) (uintptr_t) 0xdeadbeef);
 }
 
-static char* foo_params[] = {
-        (char*) "one", (char*) "two", (char*) "three", NULL
+static char *foo_params[] = {
+        (char *) "one", (char *) "two", (char *) "three", NULL
 };
 
-static char* bar_params[] = {
-        (char*) "red", (char*) "green", (char*) "blue", NULL
+static char *bar_params[] = {
+        (char *) "red", (char *) "green", (char *) "blue", NULL
 };
 
 static MunitParameterEnum test_params[] = {
-        { (char*) "foo", foo_params },
-        { (char*) "bar", bar_params },
-        { (char*) "baz", NULL },
-        { NULL, NULL },
+        {(char *) "foo", foo_params},
+        {(char *) "bar", bar_params},
+        {(char *) "baz", NULL},
+        {NULL,           NULL},
 };
 
 
 static MunitTest example_test_suite[] = {
-        { (char*) "rand",       test_rand,        NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
-        { (char*) "parameters", test_parameters,  NULL, NULL, MUNIT_TEST_OPTION_NONE, test_params },
-        { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
+        {(char *) "rand",       test_rand,       NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "parameters", test_parameters, NULL, NULL, MUNIT_TEST_OPTION_NONE, test_params},
+        {NULL, NULL,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 
 static MunitTest empty[] = {
-        {NULL, NULL,                                       NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
+        {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 
 static MunitSuite other_suites[] = {
         {(char *) "example/", example_test_suite, NULL, 1, MUNIT_SUITE_OPTION_NONE},
-        {NULL, NULL,                         NULL, 0, MUNIT_SUITE_OPTION_NONE}
+        {NULL, NULL,                              NULL, 0, MUNIT_SUITE_OPTION_NONE}
 };
 
 MunitSuite *p = &other_suites[0];
@@ -321,9 +321,9 @@ static const MunitSuite test_suite = {
  * about µnit requires it. */
 #include <stdlib.h>
 
-int main(int argc, char* argv[MUNIT_ARRAY_PARAM(argc + 1)]) {
+int main(int argc, char *argv[MUNIT_ARRAY_PARAM(argc + 1)]) {
     /* Finally, we'll actually run our test suite!  That second argument
      * is the user_data parameter which will be passed either to the
      * test or (if provided) the fixture setup function. */
-    return munit_suite_main(&test_suite, (void*) "µnit", argc, argv);
+    return munit_suite_main(&test_suite, (void *) "µnit", argc, argv);
 }

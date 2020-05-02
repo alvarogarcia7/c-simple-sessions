@@ -162,7 +162,7 @@ test_rand(const MunitParameter params[], void *user_data) {
 }
 
 static MunitResult
-new_list_is_empty_by_default(const MunitParameter params[], void *user_data) {
+new_list_is_empty_by_default() {
     int_list *list = list_new();
 
     int64_t size = list_size(list);
@@ -174,7 +174,7 @@ new_list_is_empty_by_default(const MunitParameter params[], void *user_data) {
 
 
 static MunitResult
-add_when_the_list_is_empty__adds_it_to_the_last_position(const MunitParameter params[], void *user_data) {
+add_when_the_list_is_empty__adds_it_to_the_last_position() {
     int_list *list = list_new();
 
     list_add(list, 1);
@@ -185,7 +185,7 @@ add_when_the_list_is_empty__adds_it_to_the_last_position(const MunitParameter pa
 }
 
 static MunitResult
-size_does_not_modify_the_list(const MunitParameter params[], void *user_data) {
+size_does_not_modify_the_list() {
     int_list *list = list_new();
 
     list_add(list, 1);
@@ -198,7 +198,7 @@ size_does_not_modify_the_list(const MunitParameter params[], void *user_data) {
 }
 
 static MunitResult
-add_when_the_list_has_size_1__adds_it_to_the_last_position(const MunitParameter params[], void *user_data) {
+add_when_the_list_has_size_1__adds_it_to_the_last_position() {
     int_list *list = list_new();
 
     list_add(list, 1);
@@ -212,7 +212,7 @@ add_when_the_list_has_size_1__adds_it_to_the_last_position(const MunitParameter 
 }
 
 static MunitResult
-can_add_at_a_specific_position(const MunitParameter params[], void *user_data) {
+can_add_at_a_specific_position() {
     int_list *list = list_new();
     list_add(list, 0);
     list_add(list, 2);
@@ -227,7 +227,7 @@ can_add_at_a_specific_position(const MunitParameter params[], void *user_data) {
 
 
 static MunitResult
-can_delete_by_position(const MunitParameter params[], void *user_data) {
+can_delete_by_position() {
     int_list *list = list_new();
     list_add(list, 10);
     list_add(list, 20);
@@ -240,7 +240,7 @@ can_delete_by_position(const MunitParameter params[], void *user_data) {
 }
 
 static MunitResult
-can_delete_by_position__at_the_end(const MunitParameter params[], void *user_data) {
+can_delete_by_position__at_the_end() {
     int_list *list = list_new();
     list_add(list, 10);
     list_add(list, 20);
@@ -253,7 +253,7 @@ can_delete_by_position__at_the_end(const MunitParameter params[], void *user_dat
 }
 
 static MunitResult
-can_delete_by_position__at_the_end_when_the_list_is_empty(const MunitParameter params[], void *user_data) {
+can_delete_by_position__at_the_end_when_the_list_is_empty() {
     int_list *list = list_new();
     list_add(list, 10);
 
@@ -264,7 +264,7 @@ can_delete_by_position__at_the_end_when_the_list_is_empty(const MunitParameter p
 }
 
 static MunitResult
-can_add_after_deleting_completely(const MunitParameter params[], void *user_data) {
+can_add_after_deleting_completely() {
     int_list *list = list_new();
     list_add(list, 10);
     list_delete(list, 0);
@@ -279,7 +279,7 @@ can_add_after_deleting_completely(const MunitParameter params[], void *user_data
 
 
 static MunitResult
-compare_lists_that_are_equal(const MunitParameter params[], void *user_data) {
+compare_lists_that_are_equal() {
     int_list *list1 = list_new();
     list_add(list1, 10);
 
@@ -290,7 +290,7 @@ compare_lists_that_are_equal(const MunitParameter params[], void *user_data) {
 }
 
 static MunitResult
-compare_lists_left_is_longer(const MunitParameter params[], void *user_data) {
+compare_lists_left_is_longer() {
     int_list *list1 = list_new();
     list_add(list1, 10);
     list_add(list1, 20);
@@ -302,7 +302,7 @@ compare_lists_left_is_longer(const MunitParameter params[], void *user_data) {
 }
 
 static MunitResult
-compare_lists_right_is_longer(const MunitParameter params[], void *user_data) {
+compare_lists_right_is_longer() {
     int_list *list1 = list_new();
     list_add(list1, 10);
 
@@ -314,7 +314,7 @@ compare_lists_right_is_longer(const MunitParameter params[], void *user_data) {
 }
 
 static MunitResult
-compare_lists_left_is_longer_right_is_empty(const MunitParameter params[], void *user_data) {
+compare_lists_left_is_longer_right_is_empty() {
     int_list *list1 = list_new();
     list_add(list1, 10);
     list_add(list1, 20);
@@ -325,7 +325,7 @@ compare_lists_left_is_longer_right_is_empty(const MunitParameter params[], void 
 }
 
 static MunitResult
-compare_lists_right_is_longer_left_is_empty(const MunitParameter params[], void *user_data) {
+compare_lists_right_is_longer_left_is_empty() {
     int_list *list1 = list_new();
 
     int_list *list2 = list_new();
@@ -336,7 +336,7 @@ compare_lists_right_is_longer_left_is_empty(const MunitParameter params[], void 
 }
 
 static MunitResult
-compare_lists_both_empty(const MunitParameter params[], void *user_data) {
+compare_lists_both_empty() {
     int_list *list1 = list_new();
 
     int_list *list2 = list_new();

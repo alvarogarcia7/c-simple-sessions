@@ -252,6 +252,31 @@ can_delete_by_position__at_the_end(const MunitParameter params[], void *user_dat
     return MUNIT_OK;
 }
 
+static MunitResult
+can_delete_by_position__at_the_end_when_the_list_is_empty(const MunitParameter params[], void *user_data) {
+    int_list *list = list_new();
+    list_add(list, 10);
+
+    list_delete(list, 0);
+
+    munit_assert_int64(list_size(list), ==, 0);
+    return MUNIT_OK;
+}
+
+static MunitResult
+can_add_after_deleting_completely(const MunitParameter params[], void *user_data) {
+    int_list *list = list_new();
+    list_add(list, 10);
+    list_delete(list, 0);
+    munit_assert_int64(list_size(list), ==, 0);
+
+    list_add(list, 100);
+
+    munit_assert_int64(list_size(list), ==, 1);
+    munit_assert_int64(list_at(list, 0), ==, 100);
+    return MUNIT_OK;
+}
+
 #define    print_and_assert(actual, expected, format) \
     if(actual != expected) {                          \
         printf(format, actual);                       \
@@ -279,14 +304,16 @@ test_compare_tear_down(void *fixture) {
 }
 
 static MunitTest current_suite[] = {
-        {(char *) "new list",                        new_list_is_empty_by_default,                               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "size does not modify the list",   size_does_not_modify_the_list,                              NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "adding when empty",               add_when_the_list_is_empty__adds_it_to_the_last_position,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "adding when size 1",              add_when_the_list_has_size_1__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "adding at position",              can_add_at_a_specific_position,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "delete by position",              can_delete_by_position,                                     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "delete by position (at the end)", can_delete_by_position__at_the_end,                                     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {NULL, NULL,                                                                                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
+        {(char *) "new list",                             new_list_is_empty_by_default,                               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "size does not modify the list",        size_does_not_modify_the_list,                              NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding when empty (because deleted)",  can_add_after_deleting_completely,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding when empty",                    add_when_the_list_is_empty__adds_it_to_the_last_position,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding when size 1",                   add_when_the_list_has_size_1__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "adding at position",                   can_add_at_a_specific_position,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "delete by position",                   can_delete_by_position,                                     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "delete by position (at the end)",      can_delete_by_position__at_the_end,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "delete by position (at the only one)", can_delete_by_position__at_the_end_when_the_list_is_empty,  NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {NULL, NULL,                                                                                                  NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 
 static MunitSuite other_suites[] = {

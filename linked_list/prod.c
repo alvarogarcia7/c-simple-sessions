@@ -53,7 +53,7 @@ int32_t list_at(int_list *list, int64_t position) {
 
 void list_delete(int_list *list, int64_t position) {
     int64_t i = 0;
-    while (list->next != NULL && i < position - 1) {
+    while (list->next != NULL && i < position) {
         list = list->next;
         i++;
     }

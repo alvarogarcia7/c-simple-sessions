@@ -225,6 +225,20 @@ can_add_at_a_specific_position(const MunitParameter params[], void *user_data) {
     return MUNIT_OK;
 }
 
+
+static MunitResult
+can_delete_by_position(const MunitParameter params[], void *user_data) {
+    int_list *list = list_new();
+    list_add(list, 10);
+    list_add(list, 20);
+    list_delete(list, 0);
+
+    munit_assert_int64(list_size(list), ==, 1);
+    munit_assert_int64(list_at(list, 0), ==, 20);
+
+    return MUNIT_OK;
+}
+
 #define    print_and_assert(actual, expected, format) \
     if(actual != expected) {                          \
         printf(format, actual);                       \
@@ -257,6 +271,7 @@ static MunitTest current_suite[] = {
         {(char *) "adding when empty",             add_when_the_list_is_empty__adds_it_to_the_last_position,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "adding when size 1",            add_when_the_list_has_size_1__adds_it_to_the_last_position, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "adding at position",            can_add_at_a_specific_position,                             NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "delete by position",            can_delete_by_position,                                     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {NULL, NULL,                                                                                           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 

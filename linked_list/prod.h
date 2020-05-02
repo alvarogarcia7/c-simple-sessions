@@ -17,4 +17,6 @@ void list_add_at(int_list *pList, int64_t position, int32_t value);
 
 int32_t list_at(int_list *pList, int64_t position);
 
+void list_delete(int_list *pList, int64_t position);
+
 #endif //PROD_H

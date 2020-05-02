@@ -31,7 +31,7 @@ void list_add(int_list *list, int32_t new_value) {
 }
 
 void list_add_at(int_list *list, int64_t position, int32_t value) {
-    int64_t i =0;
+    int64_t i = 0;
     while (list->next != NULL && i < position - 1) {
         list = list->next;
         i++;
@@ -49,6 +49,16 @@ int32_t list_at(int_list *list, int64_t position) {
         position--;
     }
     return llist->value;
+}
+
+void list_delete(int_list *list, int64_t position) {
+    int64_t i = 0;
+    while (list->next != NULL && i < position - 1) {
+        list = list->next;
+        i++;
+    }
+    list->value = list->next->value;
+    list->next = list->next->next;
 }
 
 // Private section implementation

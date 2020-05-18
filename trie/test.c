@@ -36,6 +36,16 @@ trie_with_a_value_has_a_single_node() {
 }
 
 static MunitResult
+trie_after_adding_a_prefix_has_two_nodes() {
+    trie *trie = trie_new();
+    trie_add(trie, "keyword");
+    trie_add(trie, "key");
+    uint32_t size = trie_size(trie);
+    munit_assert_size(size, ==, 2);
+    return MUNIT_OK;
+}
+
+static MunitResult
 can_navigate_to_the_root_node() {
     trie *trie = trie_new();
     trie_add(trie, "keyword");
@@ -44,11 +54,12 @@ can_navigate_to_the_root_node() {
 }
 
 static MunitTest tests[] = {
-        {(char *) "canary",               canary_test,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "empty trie",           empty_trie_has_size_0,               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "add 1 element",        trie_with_a_value_has_a_single_node, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "navigate to the leaf", can_navigate_to_the_root_node,       NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {NULL, NULL,                                                           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
+        {(char *) "canary",               canary_test,                              NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "empty trie",           empty_trie_has_size_0,                    NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "add 1 element",        trie_with_a_value_has_a_single_node,      NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "add prefix element",   trie_after_adding_a_prefix_has_two_nodes, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "navigate to the leaf", can_navigate_to_the_root_node,            NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {NULL, NULL,                                                                NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 
 static MunitSuite empty_suites[] = {

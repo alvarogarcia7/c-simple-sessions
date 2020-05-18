@@ -1,4 +1,6 @@
 #include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 #include "prod.h"
 
 trie *trie_new() {
@@ -8,12 +10,38 @@ trie *trie_new() {
 }
 
 uint32_t trie_size(trie *trie) {
-    return 0 + trie->next != NULL? 1 : 0;
+    struct trie *current = trie;
+    uint32_t result = 0;
+    while ((current = current->next) != NULL) {
+        result++;
+    }
+    return result;
 }
 
 void trie_add(trie *trie, char *string) {
-    trie->string = string;
-    trie->next = trie_new();
+//    size_t strspn(const char *str1, const char *str2)
+//    Calculates the length of the initial segment of str1 which consists entirely of characters in str2.
+    if (trie->next != NULL) {
+        unsigned int matching_characters = strspn(trie->string, string);
+        if (matching_characters == strlen(string)) {
+            //need to split trie
+            unsigned int rest_size = strlen(string) - matching_characters;
+            char *first_part = calloc(matching_characters + 1, sizeof(char));
+            strncpy(first_part, &(trie->string[0]), matching_characters);
+//            printf("'%s'\n", first_part);
+            char *second_part = calloc(rest_size + 1, sizeof(char));
+            strncpy(second_part, &(trie->string[matching_characters]), strlen(string) + 1);
+//            printf("'%s'\n", second_part);
+            trie->string = first_part;
+            struct trie *next = trie_new();
+            next->string=second_part;
+            next->next = trie->next;
+            trie->next = next;
+        }
+    } else {
+        trie->string = string;
+        trie->next = trie_new();
+    }
 }
 
 trie *trie_navigate(trie *trie, char *string) {

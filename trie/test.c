@@ -35,11 +35,20 @@ trie_with_a_value_has_a_single_node() {
     return MUNIT_OK;
 }
 
+static MunitResult
+can_navigate_to_a_leaf_node() {
+    trie *trie = trie_new();
+    trie_add(trie, "keyword");
+    munit_assert_string_equal(trie_navigate(trie, "keyword")->string, "keyword");
+    return MUNIT_OK;
+}
+
 static MunitTest tests[] = {
-        {(char *) "canary",     canary_test,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "empty trie", empty_trie_has_size_0,               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "add 1 element", trie_with_a_value_has_a_single_node, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {NULL, NULL,                                                 NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
+        {(char *) "canary",               canary_test,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "empty trie",           empty_trie_has_size_0,               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "add 1 element",        trie_with_a_value_has_a_single_node, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "navigate to the leaf", can_navigate_to_a_leaf_node,         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {NULL, NULL,                                                           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 
 static MunitSuite empty_suites[] = {

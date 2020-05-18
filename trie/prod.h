@@ -15,4 +15,6 @@ static uint32_t trie_size(trie *trie);
 
 static void trie_add(trie *trie, char *string);
 
+static trie *trie_navigate(trie *trie, char *string);
+
 #endif //MAIN_H

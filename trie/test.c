@@ -21,15 +21,25 @@ canary_test() {
 static MunitResult
 empty_trie_has_size_0() {
     trie *trie = trie_new();
-    uint32_t size = trie_size();
+    uint32_t size = trie_size(trie);
     munit_assert_size(size, ==, 0);
     return MUNIT_OK;
 }
 
+static MunitResult
+trie_with_a_value_has_a_single_node() {
+    trie *trie = trie_new();
+    trie_add(trie, "keyword");
+    uint32_t size = trie_size(trie);
+    munit_assert_size(size, ==, 1);
+    return MUNIT_OK;
+}
+
 static MunitTest tests[] = {
-        {(char *) "canary",     canary_test,           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "empty trie", empty_trie_has_size_0, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {NULL,                  NULL,                  NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
+        {(char *) "canary",     canary_test,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "empty trie", empty_trie_has_size_0,               NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "add 1 element", trie_with_a_value_has_a_single_node, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {NULL, NULL,                                                 NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 
 static MunitSuite empty_suites[] = {

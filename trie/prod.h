@@ -2,6 +2,7 @@
 #define MAIN_H
 
 #include <stdint.h>
+#include <stdlib.h>
 
 typedef struct trie{
     char *string;
@@ -9,11 +10,18 @@ typedef struct trie{
 } trie;
 
 static trie *trie_new() {
-    return NULL;
+    trie *trie = calloc(1, sizeof(trie));
+    trie->next = NULL;
+    return trie;
 }
 
-static uint32_t trie_size() {
-    return 0;
+static uint32_t trie_size(trie *trie) {
+    return 0 + trie->next != NULL? 1 : 0;
+}
+
+static void trie_add(trie *trie, char *string) {
+    trie->string = string;
+    trie->next = trie_new();
 }
 
 #endif //MAIN_H

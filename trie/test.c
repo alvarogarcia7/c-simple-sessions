@@ -78,8 +78,8 @@ static MunitTest tests[] = {
         {(char *) "empty trie",                           empty_trie_has_size_0,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "add 1 element",                        trie_with_a_value_has_a_single_node,           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "add prefix element",                   trie_after_adding_a_prefix_has_two_nodes,      NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "navigate to the leaf",                 can_navigate_to_the_root_node,                 NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "navigate to the leaf after splitting", navigate_to_the_root_after_splitting_the_trie, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "navigate to the root",                 can_navigate_to_the_root_node,                 NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "navigate to the root after splitting", navigate_to_the_root_after_splitting_the_trie, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "navigate to a leaf after splitting",   navigate_to_a_leaf_after_splitting_the_trie,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {NULL, NULL,                                                                                     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };

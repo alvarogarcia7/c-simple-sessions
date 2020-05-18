@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 #include <assert.h>
-#include "prod.h"
+#include "prod.c"
 #include "munit.h"
 
 static MunitResult

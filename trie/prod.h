@@ -9,19 +9,10 @@ typedef struct trie{
     struct trie *next;
 } trie;
 
-static trie *trie_new() {
-    trie *trie = calloc(1, sizeof(trie));
-    trie->next = NULL;
-    return trie;
-}
+static trie *trie_new();
 
-static uint32_t trie_size(trie *trie) {
-    return 0 + trie->next != NULL? 1 : 0;
-}
+static uint32_t trie_size(trie *trie);
 
-static void trie_add(trie *trie, char *string) {
-    trie->string = string;
-    trie->next = trie_new();
-}
+static void trie_add(trie *trie, char *string);
 
 #endif //MAIN_H

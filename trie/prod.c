@@ -44,6 +44,31 @@ void trie_add(trie *trie, char *string) {
     }
 }
 
-trie *trie_navigate(trie *trie, char *string) {
-    return trie;
+trie *trie_navigate_recursive(trie *trie, char *string, char *temporary) {
+    unsigned int matching_characters = strspn(trie->string, string);
+    if (matching_characters == 0) {
+        return NULL;
+    }
+
+    if (strcmp(trie->string, string) == 0) {
+        return trie;
+    }
+
+    if (trie->next != NULL) {
+        strncpy(temporary, &string[matching_characters], 100);
+        return trie_navigate_recursive(trie->next, temporary, temporary);
+    }
 }
+
+trie *trie_navigate(trie *trie, char *string) {
+    char *temporary = calloc(strlen(string) + 1, sizeof(char));
+    strcpy(temporary, string);
+
+    struct trie *result = trie_navigate_recursive(trie, string, temporary);
+
+    free(temporary);
+
+    return result;
+}
+
+

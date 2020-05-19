@@ -5,14 +5,14 @@
 
 trie *trie_new() {
     trie *trie = calloc(1, sizeof(struct trie));
-    trie->next = NULL;
+    trie->next[0] = NULL;
     return trie;
 }
 
 uint32_t trie_size(trie *trie) {
     struct trie *current = trie;
     uint32_t result = 0;
-    while ((current = current->next) != NULL) {
+    while ((current = current->next[0]) != NULL) {
         result++;
     }
     return result;
@@ -21,7 +21,7 @@ uint32_t trie_size(trie *trie) {
 void trie_add(trie *trie, char *string) {
 //    size_t strspn(const char *str1, const char *str2)
 //    Calculates the length of the initial segment of str1 which consists entirely of characters in str2.
-    if (trie->next != NULL) {
+    if (trie->next[0] != NULL) {
         unsigned int matching_characters = strspn(trie->string, string);
         if (matching_characters == strlen(string)) {
             //need to split trie
@@ -35,12 +35,12 @@ void trie_add(trie *trie, char *string) {
             trie->string = first_part;
             struct trie *next = trie_new();
             next->string=second_part;
-            next->next = trie->next;
-            trie->next = next;
+            next->next[0] = trie->next[0];
+            trie->next[0] = next;
         }
     } else {
         trie->string = string;
-        trie->next = trie_new();
+        trie->next[0] = trie_new();
     }
 }
 
@@ -54,9 +54,9 @@ trie *trie_navigate_recursive(trie *trie, char *string, char *temporary) {
         return trie;
     }
 
-    if (trie->next != NULL) {
+    if (trie->next[0] != NULL) {
         strncpy(temporary, &string[matching_characters], 100);
-        return trie_navigate_recursive(trie->next, temporary, temporary);
+        return trie_navigate_recursive(trie->next[0], temporary, temporary);
     }
 }
 
@@ -74,7 +74,7 @@ trie *trie_navigate(trie *trie, char *string) {
 static void trie_print(trie *trie) {
     while(trie->next != NULL){
         printf("'%s'\n", trie->string);
-        trie = trie->next;
+        trie = trie->next[0];
     }
 }
 

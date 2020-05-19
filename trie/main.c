@@ -5,6 +5,7 @@ int main() {
     trie *trie = trie_new();
     trie_add(trie, "key");
     trie_add(trie, "keg");
+    trie_add(trie, "keys");
     trie_print(trie);
     return 0;
 }

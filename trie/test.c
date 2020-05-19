@@ -82,16 +82,28 @@ can_have_multiple_children() {
     return MUNIT_OK;
 }
 
+static MunitResult
+can_have_multiple_children_and_levels() {
+    trie *trie = trie_new();
+    trie_add(trie, "key");
+    trie_add(trie, "keg");
+    trie_add(trie, "keys");
+    trie_print(trie);
+    munit_assert_string_equal(trie_navigate(trie, "keys")->string, "s");
+    return MUNIT_OK;
+}
+
 static MunitTest tests[] = {
-        {(char *) "canary",                               canary_test,                                   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "empty trie",                           empty_trie_has_size_0,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "add 1 element",                        trie_with_a_value_has_a_single_node,           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "add prefix element",                   trie_after_adding_a_prefix_has_two_nodes,      NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "navigate to the root",                 can_navigate_to_the_root_node,                 NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "navigate to the root after splitting", navigate_to_the_root_after_splitting_the_trie, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "navigate to a leaf after splitting",   navigate_to_a_leaf_after_splitting_the_trie,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "multiple children",                    can_have_multiple_children,                    NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {NULL, NULL,                                                                                     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
+        {(char *) "canary",                                 canary_test,                                   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "empty trie",                             empty_trie_has_size_0,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "add 1 element",                          trie_with_a_value_has_a_single_node,           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "add prefix element",                     trie_after_adding_a_prefix_has_two_nodes,      NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "navigate to the root",                   can_navigate_to_the_root_node,                 NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "navigate to the root after splitting",   navigate_to_the_root_after_splitting_the_trie, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "navigate to a leaf after splitting",     navigate_to_a_leaf_after_splitting_the_trie,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "multiple children",                      can_have_multiple_children,                    NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "multiple children with multiple levels", can_have_multiple_children_and_levels,         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {NULL, NULL,                                                                                       NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 
 static MunitSuite empty_suites[] = {

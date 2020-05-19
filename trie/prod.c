@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "prod.h"
 
 trie *trie_new() {
@@ -42,6 +43,24 @@ void trie_add(trie *trie, char *string) {
             next->string = second_part;
             next->next = calloc(1, sizeof(struct trie *));
             trie->next[0] = next;
+        } else if(matching_characters == strlen(trie->string)){
+            //need to go deeper
+            int i = 0;
+            unsigned int rest_size = strlen(string) - matching_characters;
+            char *second_part = calloc(rest_size + 1, sizeof(char));
+            strncpy(second_part, &(string[matching_characters]), strlen(string) + 1);
+            bool inserted = false;
+            while (trie->next[i]->next != NULL) {
+                unsigned int matching_characters = strspn(trie->next[i]->string, second_part);
+                if(matching_characters > 0) {
+                    trie_add(trie->next[i], second_part);
+                    inserted = true;
+                }
+                i++;
+            }
+            if(!inserted){
+                trie_add(trie->next[i], second_part);
+            }
         } else if (matching_characters <= strlen(string)) {
             //need to split trie
             unsigned int rest_size = strlen(string) - matching_characters;
@@ -101,17 +120,17 @@ trie *trie_navigate(trie *trie, char *string) {
     return result;
 }
 
-static void trie_print_recursive(char *prefix, trie *trie) {
-    printf("%s'%s'\n", prefix, trie->string);
+static void trie_print_recursive(int prefix, trie *trie) {
+    printf("%d: '%s'\n", prefix, trie->string);
     int i = 0;
-    while (trie->next[i]->next != NULL) {
-        trie_print_recursive("  ", trie->next[i]);
+    while (trie->next[i] != NULL && trie->next[i]->next != NULL) {
+        trie_print_recursive(prefix+1, trie->next[i]);
         i++;
     }
 }
 
 static void trie_print(trie *trie) {
-    trie_print_recursive("", trie);
+    trie_print_recursive(0, trie);
 }
 
 

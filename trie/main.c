@@ -3,10 +3,8 @@
 
 int main() {
     trie *trie = trie_new();
-    trie_add(trie, "keyword");
     trie_add(trie, "key");
-    char *string = trie_size(trie) == 2
-                   ? "OK" : "KO";
-    printf("%s\n", string);
+    trie_add(trie, "keg");
+    trie_print(trie);
     return 0;
 }

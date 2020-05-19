@@ -15,7 +15,7 @@ uint32_t trie_size(trie *trie) {
     if (trie->next != NULL) {
         result++;
         int i = 0;
-        while(current->next[i] != NULL && current->next[i]->next != NULL){
+        while (current->next[i] != NULL && current->next[i]->next != NULL) {
             result++;
             i++;
         }
@@ -53,17 +53,19 @@ void trie_add(trie *trie, char *string) {
 
             char *second_part = calloc(rest_size + 1, sizeof(char));
             strncpy(second_part, &(string[matching_characters]), strlen(string) + 1);
+            struct trie *previousNext = trie->next[0];
+
             trie->string = shared_part;
-            struct trie **children = calloc(2, sizeof(struct trie *));
-            children[0] = trie_new();
-            children[0]->string = rest_of_first;
-            children[0]->next = calloc(1, sizeof(struct trie *));
-            children[0]->next[0] = trie->next[0];
+            trie->next = calloc(2, sizeof(struct trie *));
+            trie->next[0] = trie_new();
+            trie->next[0]->string = rest_of_first;
+            trie->next[0]->next = calloc(1, sizeof(struct trie *));
+            trie->next[0]->next[0] = previousNext;
 
-            children[1] = trie_new();
-            children[1]->string = second_part;
-
-            trie->next = children;
+            trie->next[1] = trie_new();
+            trie->next[1]->string = second_part;
+            trie->next[1]->next = calloc(1, sizeof(struct trie *));;
+            trie->next[1]->next[0] = trie_new();
         }
     } else {
         trie->string = string;
@@ -99,11 +101,18 @@ trie *trie_navigate(trie *trie, char *string) {
     return result;
 }
 
-static void trie_print(trie *trie) {
-    while (trie->next != NULL) {
-        printf("'%s'\n", trie->string);
-        trie = trie->next[0];
+static void trie_print_recursive(char *prefix, trie *trie) {
+    printf("%s'%s'\n", prefix, trie->string);
+    int i = 0;
+    while (trie->next[i]->next != NULL) {
+        trie_print_recursive("  ", trie->next[i]);
+        i++;
     }
 }
+
+static void trie_print(trie *trie) {
+    trie_print_recursive("", trie);
+}
+
 
 

@@ -73,6 +73,15 @@ can_navigate_to_the_root_node() {
     return MUNIT_OK;
 }
 
+static MunitResult
+can_have_multiple_children() {
+    trie *trie = trie_new();
+    trie_add(trie, "key");
+    trie_add(trie, "keg");
+    munit_assert_string_equal(trie_navigate(trie, "key")->string, "y");
+    return MUNIT_OK;
+}
+
 static MunitTest tests[] = {
         {(char *) "canary",                               canary_test,                                   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "empty trie",                           empty_trie_has_size_0,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
@@ -81,6 +90,7 @@ static MunitTest tests[] = {
         {(char *) "navigate to the root",                 can_navigate_to_the_root_node,                 NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "navigate to the root after splitting", navigate_to_the_root_after_splitting_the_trie, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "navigate to a leaf after splitting",   navigate_to_a_leaf_after_splitting_the_trie,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "multiple children",                    can_have_multiple_children,                    NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {NULL, NULL,                                                                                     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 

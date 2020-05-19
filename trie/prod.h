@@ -6,7 +6,7 @@
 
 typedef struct trie{
     char *string;
-    struct trie *next[];
+    struct trie **next;
 } trie;
 
 static trie *trie_new();

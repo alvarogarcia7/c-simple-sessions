@@ -71,4 +71,11 @@ trie *trie_navigate(trie *trie, char *string) {
     return result;
 }
 
+static void trie_print(trie *trie) {
+    while(trie->next != NULL){
+        printf("'%s'\n", trie->string);
+        trie = trie->next;
+    }
+}
+
 

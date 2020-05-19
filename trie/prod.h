@@ -17,4 +17,6 @@ static void trie_add(trie *trie, char *string);
 
 static trie *trie_navigate(trie *trie, char *string);
 
+static void trie_print(trie *trie);
+
 #endif //MAIN_H

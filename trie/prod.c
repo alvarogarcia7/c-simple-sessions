@@ -42,7 +42,7 @@ void trie_add(trie_t *trie, char *string) {
             //need to go deeper
             unsigned int rest_size = strlen(string) - matching_characters;
             char *second_part = calloc(rest_size + 1, sizeof(char));
-            strncpy(second_part, &(string[matching_characters]), strlen(string) + 1);
+            strncpy(second_part, &(string[matching_characters]), rest_size);
             bool inserted = false;
             for (int i = 0; i < trie->children; i++) {
                 if (strspn(trie->next[i]->string, second_part) > 0) {

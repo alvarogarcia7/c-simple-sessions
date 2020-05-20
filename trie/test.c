@@ -83,6 +83,19 @@ can_have_multiple_children() {
 }
 
 static MunitResult
+can_have_multiple_children_3() {
+    trie_t *trie = trie_new();
+    trie_add(trie, "kez");
+    trie_add(trie, "keg");
+    trie_add(trie, "kex");
+    munit_assert_int(trie_size(trie), ==, 3);
+    munit_assert_true(trie_navigate(trie, "kez") != NULL);
+    munit_assert_true(trie_navigate(trie, "kex") != NULL);
+    munit_assert_true(trie_navigate(trie, "keg") != NULL);
+    return MUNIT_OK;
+}
+
+static MunitResult
 can_have_multiple_children_and_levels() {
     trie_t *trie = trie_new();
     trie_add(trie, "key");
@@ -101,6 +114,7 @@ static MunitTest tests[] = {
         {(char *) "navigate to the root after splitting",   navigate_to_the_root_after_splitting_the_trie, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "navigate to a leaf after splitting",     navigate_to_a_leaf_after_splitting_the_trie,   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "multiple children",                      can_have_multiple_children,                    NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "multiple children (3)",                  can_have_multiple_children_3,                  NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "multiple children with multiple levels", can_have_multiple_children_and_levels,         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {NULL, NULL,                                                                                       NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };

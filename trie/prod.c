@@ -61,6 +61,9 @@ void trie_add(trie_t *trie, char *string) {
             }
             next[trie->children] = trie_new();
             next[trie->children]->string = string;
+            if (trie->next != NULL){
+                free((void *) trie->next);
+            }
             trie->next = next;
             trie->children++;
 

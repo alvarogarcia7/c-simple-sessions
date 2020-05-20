@@ -73,7 +73,7 @@ void trie_add(trie_t *trie, char *string) {
             char *shared_part = calloc(matching_characters + 1, sizeof(char));
             strncpy(shared_part, &(trie->string[0]), matching_characters);
             char *rest_of_first = calloc(rest_size + 1, sizeof(char));
-            strncpy(rest_of_first, &(trie->string[matching_characters]), strlen(string) + 1);
+            strncpy(rest_of_first, &(trie->string[matching_characters]), rest_size);
 
 
             char *second_part = calloc(rest_size + 1, sizeof(char));

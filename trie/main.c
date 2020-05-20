@@ -10,6 +10,14 @@ int main() {
     trie_print(trie);
 
     print_correctness(4 == trie_size(trie));
+
+    for (int i = 0; i < trie->children; ++i) {
+        free(trie->next[i]->string);
+        free(trie->next[i]->next);
+        free(trie->next[i]);
+    }
+    free(trie->string);
+    free(trie);
     return 0;
 }
 

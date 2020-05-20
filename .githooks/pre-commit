@@ -5,11 +5,14 @@ set -euo pipefail
 
 function test_modified_folders(){
   local modified_files=$(git status --short --porcelain | grep -v "??" | awk '{print $2}') # -v ??: remove untracked #^M means modified AND staged. ^ M means modified BUT NOT added
-  local folders=$(echo $modified_files | xargs -l dirname | sort | uniq)
+  set +e
+  local folders=$(echo $modified_files | xargs -l dirname 2>/dev/null | sort | uniq) # Allow to fail silently if no folder has been modified
+  set -e
 
   echo "$folders" | while read folder; do
-    if [ -d "$folder/cmake-build-debug" ]; then
-      make -C $folder/cmake-build-debug all test
+    if [ -f "$folder/CMakeLists.txt" ]; then
+      cmake .. "$folder/cmake-build-debug"
+      make -C "$folder/cmake-build-debug" all test
     fi
   done
 }

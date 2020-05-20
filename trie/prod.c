@@ -55,10 +55,20 @@ void trie_add(trie_t *trie, char *string) {
             }
         } else if (matching_characters == 0) {
             //need to append as child
-            trie->children = 1;
-            trie->next = calloc(1, sizeof(trie_t*));
-            trie->next[0] = trie_new();
-            trie->next[0]->string = string;
+            if(trie->children == 0) {
+                trie->next = calloc(1, sizeof(trie_t *));
+                trie->next[0] = trie_new();
+                trie->next[0]->string = string;
+            } else {
+                trie_t **next = calloc(trie->children+1, sizeof(trie_t *));
+                for (int i = 0; i < trie->children; ++i) {
+                    next[i] = trie->next[i];
+                }
+                next[trie->children] = trie_new();
+                next[trie->children]->string = string;
+                trie->next = next;
+            }
+            trie->children++;
 
         } else if (matching_characters <= strlen(string)) {
             //need to split trie

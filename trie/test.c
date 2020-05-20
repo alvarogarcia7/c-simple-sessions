@@ -88,7 +88,7 @@ can_have_multiple_children_3() {
     trie_add(trie, "kez");
     trie_add(trie, "keg");
     trie_add(trie, "kex");
-    munit_assert_int(trie_size(trie), ==, 3);
+    munit_assert_int(trie_size(trie), ==, 4);
     munit_assert_true(trie_navigate(trie, "kez") != NULL);
     munit_assert_true(trie_navigate(trie, "kex") != NULL);
     munit_assert_true(trie_navigate(trie, "keg") != NULL);

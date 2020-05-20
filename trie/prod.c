@@ -6,6 +6,10 @@
 
 void print_with_prefix(int prefix, char *string);
 
+void append_as_child(trie_t *trie, char *string);
+
+trie_t **make_space_for_one_more_children(const trie_t *trie);
+
 trie_t *trie_new() {
     return calloc(1, sizeof(trie_t));
 }
@@ -54,19 +58,7 @@ void trie_add(trie_t *trie, char *string) {
                 trie_add(trie, second_part);
             }
         } else if (matching_characters == 0) {
-            //need to append as child
-            trie_t **next = calloc(trie->children+1, sizeof(trie_t *));
-            for (int i = 0; i < trie->children; ++i) {
-                next[i] = trie->next[i];
-            }
-            next[trie->children] = trie_new();
-            next[trie->children]->string = string;
-            if (trie->next != NULL){
-                free((void *) trie->next);
-            }
-            trie->next = next;
-            trie->children++;
-
+            append_as_child(trie, string);
         } else if (matching_characters <= strlen(string)) {
             //need to split trie
             unsigned int rest_size = strlen(string) - matching_characters;
@@ -95,6 +87,26 @@ void trie_add(trie_t *trie, char *string) {
         trie->string = string;
         trie->children = 0;
     }
+}
+
+void append_as_child(trie_t *trie, char *string) {
+    trie_t **children = make_space_for_one_more_children(trie);
+    trie_t *newest_children = trie_new();
+    newest_children->string = string;
+    children[trie->children] = newest_children;
+    if (trie->next != NULL){
+        free((void *) trie->next);
+    }
+    trie->next = children;
+    trie->children++;
+}
+
+trie_t **make_space_for_one_more_children(const trie_t *trie) {
+    trie_t **next = calloc(trie->children + 1, sizeof(trie_t *));
+    for (int i = 0; i < trie->children; ++i) {
+        next[i] = trie->next[i];
+    }
+    return next;
 }
 
 trie_t *trie_navigate_recursive(trie_t *trie, char *string, char *temporary) {

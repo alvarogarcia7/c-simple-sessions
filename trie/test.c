@@ -20,7 +20,7 @@ canary_test() {
 
 static MunitResult
 empty_trie_has_size_0() {
-    trie *trie = trie_new();
+    trie_t *trie = trie_new();
     uint32_t size = trie_size(trie);
     munit_assert_size(size, ==, 0);
     return MUNIT_OK;
@@ -28,7 +28,7 @@ empty_trie_has_size_0() {
 
 static MunitResult
 trie_with_a_value_has_a_single_node() {
-    trie *trie = trie_new();
+    trie_t *trie = trie_new();
     trie_add(trie, "keyword");
     uint32_t size = trie_size(trie);
     munit_assert_size(size, ==, 1);
@@ -37,7 +37,7 @@ trie_with_a_value_has_a_single_node() {
 
 static MunitResult
 trie_after_adding_a_prefix_has_two_nodes() {
-    trie *trie = trie_new();
+    trie_t *trie = trie_new();
     trie_add(trie, "keyword");
     trie_add(trie, "key");
     uint32_t size = trie_size(trie);
@@ -47,7 +47,7 @@ trie_after_adding_a_prefix_has_two_nodes() {
 
 static MunitResult
 navigate_to_the_root_after_splitting_the_trie() {
-    trie *trie = trie_new();
+    trie_t *trie = trie_new();
     trie_add(trie, "keyword");
     trie_add(trie, "key");
 
@@ -57,7 +57,7 @@ navigate_to_the_root_after_splitting_the_trie() {
 
 static MunitResult
 navigate_to_a_leaf_after_splitting_the_trie() {
-    trie *trie = trie_new();
+    trie_t *trie = trie_new();
     trie_add(trie, "keyword");
     trie_add(trie, "key");
 
@@ -67,7 +67,7 @@ navigate_to_a_leaf_after_splitting_the_trie() {
 
 static MunitResult
 can_navigate_to_the_root_node() {
-    trie *trie = trie_new();
+    trie_t *trie = trie_new();
     trie_add(trie, "keyword");
     munit_assert_string_equal(trie_navigate(trie, "keyword")->string, "keyword");
     return MUNIT_OK;
@@ -75,7 +75,7 @@ can_navigate_to_the_root_node() {
 
 static MunitResult
 can_have_multiple_children() {
-    trie *trie = trie_new();
+    trie_t *trie = trie_new();
     trie_add(trie, "key");
     trie_add(trie, "keg");
     munit_assert_string_equal(trie_navigate(trie, "key")->string, "y");
@@ -84,11 +84,10 @@ can_have_multiple_children() {
 
 static MunitResult
 can_have_multiple_children_and_levels() {
-    trie *trie = trie_new();
+    trie_t *trie = trie_new();
     trie_add(trie, "key");
     trie_add(trie, "keg");
     trie_add(trie, "keys");
-    trie_print(trie);
     munit_assert_string_equal(trie_navigate(trie, "keys")->string, "s");
     return MUNIT_OK;
 }

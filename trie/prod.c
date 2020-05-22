@@ -100,13 +100,8 @@ char *str_select_from(const char *string, unsigned int start) {
 void
 split_by_length(char **first_part, char **second_part,
         const char *trie_string, const char *string, unsigned int matching_characters) {
-    unsigned int rest_size = strlen(string) - matching_characters;
-
-    (*second_part) = calloc(rest_size + 1, sizeof(char));
-    strncpy((*second_part), &(trie_string[matching_characters]), strlen(string) + 1);
-
-    (*first_part) = calloc(matching_characters + 1, sizeof(char));
-    strncpy((*first_part), trie_string, matching_characters);
+    (*first_part) = str_substring(trie_string, 0, matching_characters);
+    (*second_part) = str_select_from(trie_string, matching_characters);
 }
 
 void append_as_child(trie_t *trie, char *string) {

@@ -11,8 +11,7 @@ void append_as_child(trie_t *trie, char *string);
 trie_t **make_space_for_one_more_children(const trie_t *trie);
 
 void
-split_by_length(char **first_part, char **second_part, const char *trie_string, const char *string,
-                unsigned int matching_characters);
+split_by_length(char **first_part, char **second_part, const char *string, unsigned int matching_characters);
 
 char *str_select_from(const char *string, unsigned int start);
 
@@ -42,7 +41,7 @@ void trie_add(trie_t *trie, char *string) {
     if (matching_characters == strlen(string)) {
         //need to split trie
         char *first_part, *second_part;
-        split_by_length(&first_part, &second_part, trie->string, string, matching_characters);
+        split_by_length(&first_part, &second_part, trie->string, matching_characters);
         trie->string = first_part;
         trie->children++;
         trie_t *next = trie_new();
@@ -98,10 +97,9 @@ char *str_select_from(const char *string, unsigned int start) {
 }
 
 void
-split_by_length(char **first_part, char **second_part,
-        const char *trie_string, const char *string, unsigned int matching_characters) {
-    (*first_part) = str_substring(trie_string, 0, matching_characters);
-    (*second_part) = str_select_from(trie_string, matching_characters);
+split_by_length(char **first_part, char **second_part, const char *string, unsigned int matching_characters) {
+    (*first_part) = str_substring(string, 0, matching_characters);
+    (*second_part) = str_select_from(string, matching_characters);
 }
 
 void append_as_child(trie_t *trie, char *string) {

@@ -55,7 +55,6 @@ void trie_add(trie_t *trie, char *string) {
         trie->string = first_part;
         trie->children++;
         trie_t *next = trie_new_with_value(second_part);
-        next->string = second_part;
         trie->next = calloc(1, sizeof(trie_t *));
         trie->next[0] = next;
     } else if (str_contained_in(trie->string, string)) {

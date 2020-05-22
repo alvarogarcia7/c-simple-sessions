@@ -31,6 +31,8 @@ uint32_t trie_size(trie_t *trie) {
 
 #define str_contained_in(needle, haystack) strncmp(needle, haystack, strlen(needle)) == 0
 
+#define str_shared_prefix(string, other_string) strncmp(string, other_string, 1) == 0
+
 void trie_add(trie_t *trie, char *string) {
 //    size_t strspn(const char *str1, const char *str2)
 //    Calculates the length of the initial segment of str1 which consists entirely of characters in str2.
@@ -65,7 +67,7 @@ void trie_add(trie_t *trie, char *string) {
         }
     } else if (matching_characters == 0) {
         append_as_child(trie, string);
-    } else if (matching_characters <= strlen(string)) {
+    } else if (str_shared_prefix(string, trie->string)) {
         //need to split trie
         char *shared_part = str_substring(trie->string, 0, matching_characters);
         char *rest_of_first = str_select_from(trie->string, matching_characters);

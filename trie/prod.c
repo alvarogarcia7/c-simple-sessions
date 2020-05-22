@@ -80,8 +80,7 @@ void trie_add(trie_t *trie, char *string) {
         trie->next[0]->next = calloc(1, sizeof(trie_t *));
         trie->next[0]->next = previousNext;
 
-        trie->next[1] = trie_new();
-        trie->next[1]->string = second_part;
+        trie->next[1] = trie_new_with_value(second_part);
     }
 }
 

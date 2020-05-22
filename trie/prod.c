@@ -16,6 +16,9 @@ split_by_length(char **first_part, char **second_part, const char *trie_string, 
 
 char *str_select(const char *string, unsigned int matching_characters);
 
+void str_select_rest_from_two_strings(char **rest_of_first, char **second_part, const char *trie_string, const char *string,
+                                      unsigned int start_index);
+
 trie_t *trie_new() {
     return calloc(1, sizeof(trie_t));
 }
@@ -64,15 +67,12 @@ void trie_add(trie_t *trie, char *string) {
         append_as_child(trie, string);
     } else if (matching_characters <= strlen(string)) {
         //need to split trie
-        unsigned int rest_size = strlen(string) - matching_characters;
         char *shared_part = calloc(matching_characters + 1, sizeof(char));
         strncpy(shared_part, &(trie->string[0]), matching_characters);
-        char *rest_of_first = calloc(rest_size + 1, sizeof(char));
-        strncpy(rest_of_first, &(trie->string[matching_characters]), rest_size);
+        char *rest_of_first, *second_part;
+        str_select_rest_from_two_strings(&rest_of_first, &second_part, trie->string, string, matching_characters);
 
 
-        char *second_part = calloc(rest_size + 1, sizeof(char));
-        strncpy(second_part, &(string[matching_characters]), rest_size);
         trie_t **previousNext = trie->next;
 
         trie->string = shared_part;
@@ -95,14 +95,27 @@ char *str_select(const char *string, unsigned int matching_characters) {
     return second_part;
 }
 
+void str_select_rest_from_two_strings(char **rest_of_first, char **second_part,
+                                      const char *trie_string, const char *string, unsigned int start_index) {
+    unsigned int rest_size = strlen(string) - start_index;
+
+    (*rest_of_first) = calloc(rest_size + 1, sizeof(char));
+    strncpy((*rest_of_first), &(trie_string[start_index]), rest_size);
+
+    (*second_part) = calloc(rest_size + 1, sizeof(char));
+    strncpy((*second_part), &(string[start_index]), rest_size);
+}
+
 void
 split_by_length(char **first_part, char **second_part,
         const char *trie_string, const char *string, unsigned int matching_characters) {
     unsigned int rest_size = strlen(string) - matching_characters;
-    (*first_part) = calloc(matching_characters + 1, sizeof(char));
+
     (*second_part) = calloc(rest_size + 1, sizeof(char));
-    strncpy((*first_part), trie_string, matching_characters);
     strncpy((*second_part), &(trie_string[matching_characters]), strlen(string) + 1);
+
+    (*first_part) = calloc(matching_characters + 1, sizeof(char));
+    strncpy((*first_part), trie_string, matching_characters);
 }
 
 void append_as_child(trie_t *trie, char *string) {

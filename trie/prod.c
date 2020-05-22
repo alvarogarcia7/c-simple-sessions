@@ -25,7 +25,10 @@ uint32_t trie_size(trie_t *trie) {
 void trie_add(trie_t *trie, char *string) {
 //    size_t strspn(const char *str1, const char *str2)
 //    Calculates the length of the initial segment of str1 which consists entirely of characters in str2.
-    if (trie->string != NULL) {
+    if (trie->string == NULL) {
+        trie->string = string;
+        trie->children = 0;
+    } else {
         unsigned int matching_characters = strspn(trie->string, string);
         if (matching_characters == strlen(string)) {
             //need to split trie
@@ -83,9 +86,6 @@ void trie_add(trie_t *trie, char *string) {
             trie->next[1] = trie_new();
             trie->next[1]->string = second_part;
         }
-    } else {
-        trie->string = string;
-        trie->children = 0;
     }
 }
 

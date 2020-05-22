@@ -10,6 +10,9 @@ void append_as_child(trie_t *trie, char *string);
 
 trie_t **make_space_for_one_more_children(const trie_t *trie);
 
+void
+split(const char *trie, const char *string, unsigned int matching_characters, char **first_part, char **second_part);
+
 trie_t *trie_new() {
     return calloc(1, sizeof(trie_t));
 }
@@ -33,11 +36,8 @@ void trie_add(trie_t *trie, char *string) {
     unsigned int matching_characters = strspn(trie->string, string);
     if (matching_characters == strlen(string)) {
         //need to split trie
-        unsigned int rest_size = strlen(string) - matching_characters;
-        char *first_part = calloc(matching_characters + 1, sizeof(char));
-        strncpy(first_part, &(trie->string[0]), matching_characters);
-        char *second_part = calloc(rest_size + 1, sizeof(char));
-        strncpy(second_part, &(trie->string[matching_characters]), strlen(string) + 1);
+        char *first_part, *second_part;
+        split(trie->string, string, matching_characters, &first_part, &second_part);
         trie->string = first_part;
         trie->children++;
         trie_t *next = trie_new();
@@ -85,6 +85,15 @@ void trie_add(trie_t *trie, char *string) {
         trie->next[1] = trie_new();
         trie->next[1]->string = second_part;
     }
+}
+
+void
+split(const char *trie_string, const char *string, unsigned int matching_characters, char **first_part, char **second_part) {
+    unsigned int rest_size = strlen(string) - matching_characters;
+    (*first_part) = calloc(matching_characters + 1, sizeof(char));
+    (*second_part) = calloc(rest_size + 1, sizeof(char));
+    strncpy((*first_part), trie_string, matching_characters);
+    strncpy((*second_part), &(trie_string[matching_characters]), strlen(string) + 1);
 }
 
 void append_as_child(trie_t *trie, char *string) {

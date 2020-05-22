@@ -38,7 +38,7 @@ void trie_add(trie_t *trie, char *string) {
         return;
     }
     unsigned int matching_characters = strspn(trie->string, string);
-    if (matching_characters == strlen(string)) {
+    if (strncmp(trie->string, string, strlen(string)) == 0) {
         //need to split trie
         char *first_part, *second_part;
         split_by_length(&first_part, &second_part, trie->string, matching_characters);

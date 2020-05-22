@@ -76,8 +76,7 @@ void trie_add(trie_t *trie, char *string) {
         trie->string = shared_part;
         trie->children = 2;
         trie->next = calloc(2, sizeof(trie_t *));
-        trie->next[0] = trie_new();
-        trie->next[0]->string = rest_of_first;
+        trie->next[0] = trie_new_with_value(rest_of_first);
         trie->next[0]->next = calloc(1, sizeof(trie_t *));
         trie->next[0]->next = previousNext;
 

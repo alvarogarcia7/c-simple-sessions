@@ -89,9 +89,9 @@ void trie_add(trie_t *trie, char *string) {
 }
 
 char *str_substring(const char *string, unsigned int start, unsigned int end){
-    unsigned rest_size = end + start;
-    char *second_part = calloc(rest_size + 1, sizeof(char));
-    strncpy(second_part, &(string[start]), rest_size);
+    unsigned size = end + start;
+    char *second_part = calloc(size + 1, sizeof(char));
+    strncpy(second_part, &(string[start]), size);
     return second_part;
 }
 

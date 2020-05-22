@@ -21,6 +21,8 @@ bool insert_at_child_if_possible(const trie_t *trie, char *second_part);
 
 bool insert_as_another_child(trie_t *trie, char *second_part);
 
+trie_t *trie_new_with_value(char *string);
+
 trie_t *trie_new() {
     return calloc(1, sizeof(trie_t));
 }
@@ -52,7 +54,7 @@ void trie_add(trie_t *trie, char *string) {
         split_by_length(&first_part, &second_part, trie->string, matching_characters);
         trie->string = first_part;
         trie->children++;
-        trie_t *next = trie_new();
+        trie_t *next = trie_new_with_value(second_part);
         next->string = second_part;
         trie->next = calloc(1, sizeof(trie_t *));
         trie->next[0] = next;
@@ -82,6 +84,12 @@ void trie_add(trie_t *trie, char *string) {
         trie->next[1] = trie_new();
         trie->next[1]->string = second_part;
     }
+}
+
+trie_t *trie_new_with_value(char *string) {
+    trie_t *result = trie_new();
+    result->string = string;
+    return result;
 }
 
 bool insert_as_another_child(trie_t *trie, char *second_part) { trie_add(trie, second_part);

@@ -88,11 +88,16 @@ void trie_add(trie_t *trie, char *string) {
     }
 }
 
+char *str_substring(const char *string, unsigned int start, unsigned int end){
+    unsigned rest_size = end + start;
+    char *second_part = calloc(rest_size + 1, sizeof(char));
+    strncpy(second_part, &(string[start]), rest_size);
+    return second_part;
+}
+
 char *str_select(const char *string, unsigned int matching_characters) {
     unsigned int rest_size = strlen(string) - matching_characters;
-    char *second_part = calloc(rest_size + 1, sizeof(char));
-    strncpy(second_part, &(string[matching_characters]), rest_size);
-    return second_part;
+    return str_substring(string, matching_characters, matching_characters + rest_size);
 }
 
 void str_select_rest_from_two_strings(char **rest_of_first, char **second_part,

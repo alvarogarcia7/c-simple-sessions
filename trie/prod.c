@@ -29,6 +29,8 @@ uint32_t trie_size(trie_t *trie) {
     return result;
 }
 
+#define str_contained_in(needle, haystack) strncmp(needle, haystack, strlen(needle)) == 0
+
 void trie_add(trie_t *trie, char *string) {
 //    size_t strspn(const char *str1, const char *str2)
 //    Calculates the length of the initial segment of str1 which consists entirely of characters in str2.
@@ -38,7 +40,7 @@ void trie_add(trie_t *trie, char *string) {
         return;
     }
     unsigned int matching_characters = strspn(trie->string, string);
-    if (strncmp(trie->string, string, strlen(string)) == 0) {
+    if (str_contained_in(string, trie->string)) {
         //need to split trie
         char *first_part, *second_part;
         split_by_length(&first_part, &second_part, trie->string, matching_characters);

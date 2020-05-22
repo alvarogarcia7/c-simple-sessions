@@ -36,10 +36,8 @@ void trie_add(trie_t *trie, char *string) {
         unsigned int rest_size = strlen(string) - matching_characters;
         char *first_part = calloc(matching_characters + 1, sizeof(char));
         strncpy(first_part, &(trie->string[0]), matching_characters);
-//            printf("'%s'\n", first_part);
         char *second_part = calloc(rest_size + 1, sizeof(char));
         strncpy(second_part, &(trie->string[matching_characters]), strlen(string) + 1);
-//            printf("'%s'\n", second_part);
         trie->string = first_part;
         trie->children++;
         trie_t *next = trie_new();

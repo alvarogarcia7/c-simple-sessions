@@ -14,7 +14,7 @@ void
 split_by_length(char **first_part, char **second_part, const char *trie_string, const char *string,
                 unsigned int matching_characters);
 
-char *str_select(const char *string, unsigned int matching_characters);
+char *str_select_from(const char *string, unsigned int start);
 
 void str_select_rest_from_two_strings(char **rest_of_first, char **second_part, const char *trie_string, const char *string,
                                       unsigned int start_index);
@@ -52,7 +52,7 @@ void trie_add(trie_t *trie, char *string) {
         trie->next[0] = next;
     } else if (matching_characters == strlen(trie->string)) {
         //need to go deeper
-        char *second_part = str_select(string, matching_characters);
+        char *second_part = str_select_from(string, matching_characters);
         bool inserted = false;
         for (int i = 0; i < trie->children; i++) {
             if (strspn(trie->next[i]->string, second_part) > 0) {
@@ -95,8 +95,8 @@ char *str_substring(const char *string, unsigned int start, unsigned int end){
     return second_part;
 }
 
-char *str_select(const char *string, unsigned int matching_characters) {
-    return str_substring(string, matching_characters, strlen(string));
+char *str_select_from(const char *string, unsigned int start) {
+    return str_substring(string, start, strlen(string));
 }
 
 void str_select_rest_from_two_strings(char **rest_of_first, char **second_part,

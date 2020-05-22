@@ -101,12 +101,8 @@ char *str_select_from(const char *string, unsigned int start) {
 
 void str_select_rest_from_two_strings(char **rest_of_first, char **second_part,
                                       const char *trie_string, const char *string, unsigned int start_index) {
-    unsigned int rest_size = strlen(string) - start_index;
-
-
-    (*rest_of_first) = str_substring(trie_string, start_index, rest_size);
-
-    (*second_part) = str_substring(string, start_index, rest_size);
+    (*rest_of_first) = str_select_from(trie_string, start_index);
+    (*second_part) = str_select_from(string, start_index);
 }
 
 void

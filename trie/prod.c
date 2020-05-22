@@ -16,9 +16,6 @@ split_by_length(char **first_part, char **second_part, const char *trie_string, 
 
 char *str_select_from(const char *string, unsigned int start);
 
-void str_select_rest_from_two_strings(char **rest_of_first, char **second_part, const char *trie_string, const char *string,
-                                      unsigned int start_index);
-
 trie_t *trie_new() {
     return calloc(1, sizeof(trie_t));
 }
@@ -69,8 +66,9 @@ void trie_add(trie_t *trie, char *string) {
         //need to split trie
         char *shared_part = calloc(matching_characters + 1, sizeof(char));
         strncpy(shared_part, &(trie->string[0]), matching_characters);
-        char *rest_of_first, *second_part;
-        str_select_rest_from_two_strings(&rest_of_first, &second_part, trie->string, string, matching_characters);
+        
+        char *rest_of_first = str_select_from(trie->string, matching_characters);
+        char *second_part = str_select_from(string, matching_characters);
 
 
         trie_t **previousNext = trie->next;
@@ -97,12 +95,6 @@ char *str_substring(const char *string, unsigned int start, unsigned int end){
 
 char *str_select_from(const char *string, unsigned int start) {
     return str_substring(string, start, strlen(string));
-}
-
-void str_select_rest_from_two_strings(char **rest_of_first, char **second_part,
-                                      const char *trie_string, const char *string, unsigned int start_index) {
-    (*rest_of_first) = str_select_from(trie_string, start_index);
-    (*second_part) = str_select_from(string, start_index);
 }
 
 void

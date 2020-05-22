@@ -50,7 +50,7 @@ void trie_add(trie_t *trie, char *string) {
         next->string = second_part;
         trie->next = calloc(1, sizeof(trie_t *));
         trie->next[0] = next;
-    } else if (matching_characters == strlen(trie->string)) {
+    } else if (str_contained_in(trie->string, string)) {
         //need to go deeper
         char *second_part = str_select_from(string, matching_characters);
         bool inserted = false;

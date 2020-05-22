@@ -14,6 +14,8 @@ void
 split_by_length(char **first_part, char **second_part, const char *trie_string, const char *string,
                 unsigned int matching_characters);
 
+char *str_select(const char *string, unsigned int matching_characters);
+
 trie_t *trie_new() {
     return calloc(1, sizeof(trie_t));
 }
@@ -47,9 +49,7 @@ void trie_add(trie_t *trie, char *string) {
         trie->next[0] = next;
     } else if (matching_characters == strlen(trie->string)) {
         //need to go deeper
-        unsigned int rest_size = strlen(string) - matching_characters;
-        char *second_part = calloc(rest_size + 1, sizeof(char));
-        strncpy(second_part, &(string[matching_characters]), rest_size);
+        char *second_part = str_select(string, matching_characters);
         bool inserted = false;
         for (int i = 0; i < trie->children; i++) {
             if (strspn(trie->next[i]->string, second_part) > 0) {
@@ -86,6 +86,13 @@ void trie_add(trie_t *trie, char *string) {
         trie->next[1] = trie_new();
         trie->next[1]->string = second_part;
     }
+}
+
+char *str_select(const char *string, unsigned int matching_characters) {
+    unsigned int rest_size = strlen(string) - matching_characters;
+    char *second_part = calloc(rest_size + 1, sizeof(char));
+    strncpy(second_part, &(string[matching_characters]), rest_size);
+    return second_part;
 }
 
 void

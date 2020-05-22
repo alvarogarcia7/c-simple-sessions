@@ -17,6 +17,10 @@ char *str_select_from(const char *string, unsigned int start);
 
 char *str_substring(const char *string, unsigned int start, unsigned int end);
 
+bool insert_at_child_if_possible(const trie_t *trie, char *second_part);
+
+void insert_as_another_child(trie_t *trie, char *second_part);
+
 trie_t *trie_new() {
     return calloc(1, sizeof(trie_t));
 }
@@ -55,15 +59,9 @@ void trie_add(trie_t *trie, char *string) {
     } else if (str_contained_in(trie->string, string)) {
         //need to go deeper
         char *second_part = str_select_from(string, matching_characters);
-        bool inserted = false;
-        for (int i = 0; i < trie->children; i++) {
-            if (strspn(trie->next[i]->string, second_part) > 0) {
-                trie_add(trie->next[i], second_part);
-                inserted = true;
-            }
-        }
+        bool inserted = insert_at_child_if_possible(trie, second_part);
         if (!inserted) {
-            trie_add(trie, second_part);
+            insert_as_another_child(trie, second_part);
         }
     } else if (matching_characters == 0) {
         append_as_child(trie, string);
@@ -87,6 +85,19 @@ void trie_add(trie_t *trie, char *string) {
         trie->next[1] = trie_new();
         trie->next[1]->string = second_part;
     }
+}
+
+void insert_as_another_child(trie_t *trie, char *second_part) { trie_add(trie, second_part); }
+
+bool insert_at_child_if_possible(const trie_t *trie, char *second_part) {
+    bool inserted = false;
+    for (int i = 0; i < trie->children; i++) {
+        if (strspn(trie->next[i]->string, second_part) > 0) {
+            trie_add(trie->next[i], second_part);
+            inserted = true;
+        }
+    }
+    return inserted;
 }
 
 char *str_substring(const char *string, unsigned int start, unsigned int end){

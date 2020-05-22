@@ -16,6 +16,8 @@ split_by_length(char **first_part, char **second_part, const char *trie_string, 
 
 char *str_select_from(const char *string, unsigned int start);
 
+char *str_substring(const char *string, unsigned int start, unsigned int end);
+
 trie_t *trie_new() {
     return calloc(1, sizeof(trie_t));
 }
@@ -64,9 +66,7 @@ void trie_add(trie_t *trie, char *string) {
         append_as_child(trie, string);
     } else if (matching_characters <= strlen(string)) {
         //need to split trie
-        char *shared_part = calloc(matching_characters + 1, sizeof(char));
-        strncpy(shared_part, &(trie->string[0]), matching_characters);
-        
+        char *shared_part = str_substring(trie->string, 0, matching_characters);
         char *rest_of_first = str_select_from(trie->string, matching_characters);
         char *second_part = str_select_from(string, matching_characters);
 

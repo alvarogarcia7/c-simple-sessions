@@ -21,7 +21,7 @@ bool insert_at_child_if_possible(const trie_t *trie, char *second_part);
 
 bool insert_as_another_child(trie_t *trie, char *second_part);
 
-trie_t *trie_new_with_value(char *string);
+trie_t *trie_new_with_value(const char *string);
 
 void turn_current_into_a_child_then_insert_another_child(trie_t *trie, const char *string);
 
@@ -103,10 +103,10 @@ void turn_current_into_a_child_then_insert_another_child(trie_t *trie, const cha
     trie->children = 2;
 }
 
-trie_t *trie_new_with_value(char *string) {
+trie_t *trie_new_with_value(const char *string) {
     trie_t *result = trie_new();
     result->is_end_of_word = true;
-    result->string = string;
+    result->string = (char *)string;
     return result;
 }
 

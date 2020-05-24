@@ -123,9 +123,7 @@ split_by_length(char **first_part, char **second_part, const char *string, unsig
 
 void append_as_child(trie_t *trie, char *string) {
     trie_t **children = make_space_for_one_more_children(trie);
-    trie_t *newest_children = trie_new();
-    newest_children->string = string;
-    children[trie->children] = newest_children;
+    children[trie->children] = trie_new_with_value(string);
     if (trie->next != NULL){
         free((void *) trie->next);
     }

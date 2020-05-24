@@ -41,6 +41,8 @@ uint32_t trie_size(trie_t *trie) {
 
 #define str_shared_prefix(string, other_string) strncmp(string, other_string, 1) == 0
 
+#define str_nothing_in_common(string, other_string) strspn(string, other_string) == 0
+
 void trie_add(trie_t *trie, char *string) {
 //    size_t strspn(const char *str1, const char *str2)
 //    Calculates the length of the initial segment of str1 which consists entirely of characters in str2.
@@ -64,7 +66,7 @@ void trie_add(trie_t *trie, char *string) {
         //need to go deeper
         char *second_part = str_select_from(string, matching_characters);
         insert_at_child_if_possible(trie, second_part) || insert_as_another_child(trie, second_part);
-    } else if (matching_characters == 0) {
+    } else if (str_nothing_in_common(trie->string, string)) {
         turn_current_into_a_child_then_insert_another_child(trie, string);
     } else if (str_shared_prefix(string, trie->string)) {
         //need to split trie

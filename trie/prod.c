@@ -23,6 +23,8 @@ bool insert_as_another_child(trie_t *trie, char *second_part);
 
 trie_t *trie_new_with_value(char *string);
 
+void turn_current_into_a_child_then_insert_another_child(trie_t *trie, const char *string);
+
 trie_t *trie_new() {
     return calloc(1, sizeof(trie_t));
 }
@@ -63,16 +65,7 @@ void trie_add(trie_t *trie, char *string) {
         char *second_part = str_select_from(string, matching_characters);
         insert_at_child_if_possible(trie, second_part) || insert_as_another_child(trie, second_part);
     } else if (matching_characters == 0) {
-        trie_t *parent_turned_sibling0 = trie_new_with_value(trie->string);
-        parent_turned_sibling0->children = trie->children;
-        parent_turned_sibling0->next = trie->next;
-
-        trie->next = calloc(2, sizeof(trie_t *));
-        trie->is_end_of_word = false;
-        trie->string = "";
-        trie->next[0] = parent_turned_sibling0;
-        trie->next[1] = trie_new_with_value(string);
-        trie->children = 2;
+        turn_current_into_a_child_then_insert_another_child(trie, string);
     } else if (str_shared_prefix(string, trie->string)) {
         //need to split trie
         char *shared_part = str_substring(trie->string, 0, matching_characters);
@@ -91,6 +84,19 @@ void trie_add(trie_t *trie, char *string) {
 
         trie->next[1] = trie_new_with_value(second_part);
     }
+}
+
+void turn_current_into_a_child_then_insert_another_child(trie_t *trie, const char *string) {
+    trie_t *parent_turned_sibling0 = trie_new_with_value(trie->string);
+    parent_turned_sibling0->children = trie->children;
+    parent_turned_sibling0->next = trie->next;
+
+    trie->next = calloc(2, sizeof(trie_t *));
+    trie->is_end_of_word = false;
+    trie->string = "";
+    trie->next[0] = parent_turned_sibling0;
+    trie->next[1] = trie_new_with_value(string);
+    trie->children = 2;
 }
 
 trie_t *trie_new_with_value(char *string) {

@@ -40,7 +40,7 @@ trie_with_two_values_at_the_top_level() {
     trie_t *trie = trie_new();
     trie_add(trie, "a");
     trie_add(trie, "b");
-    munit_assert_size(trie_size(trie), ==, 2);
+    munit_assert_size(trie_size(trie), ==, 3);
     munit_assert_not_null(trie_navigate(trie, "a"));
     munit_assert_not_null(trie_navigate(trie, "b"));
     return MUNIT_OK;

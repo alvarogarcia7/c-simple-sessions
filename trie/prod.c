@@ -62,7 +62,15 @@ void trie_add(trie_t *trie, char *string) {
         char *second_part = str_select_from(string, matching_characters);
         insert_at_child_if_possible(trie, second_part) || insert_as_another_child(trie, second_part);
     } else if (matching_characters == 0) {
-        append_as_child(trie, string);
+        trie_t *parent_turned_sibling0 = trie_new_with_value(trie->string);
+        parent_turned_sibling0->children = trie->children;
+        parent_turned_sibling0->next = trie->next;
+
+        trie->next = calloc(2, sizeof(trie_t *));
+        trie->string = "";
+        trie->next[0] = parent_turned_sibling0;
+        trie->next[1] = trie_new_with_value(string);
+        trie->children = 2;
     } else if (str_shared_prefix(string, trie->string)) {
         //need to split trie
         char *shared_part = str_substring(trie->string, 0, matching_characters);
@@ -89,8 +97,15 @@ trie_t *trie_new_with_value(char *string) {
     return result;
 }
 
-bool insert_as_another_child(trie_t *trie, char *second_part) { trie_add(trie, second_part);
-return true;
+bool insert_as_another_child(trie_t *trie, char *second_part) {
+    trie_t **children = make_space_for_one_more_children(trie);
+    children[trie->children] = trie_new_with_value(second_part);
+    if (trie->next != NULL){
+        free((void *) trie->next);
+    }
+    trie->next = children;
+    trie->children++;
+    return true;
 }
 
 bool insert_at_child_if_possible(const trie_t *trie, char *second_part) {
@@ -140,27 +155,24 @@ trie_t **make_space_for_one_more_children(const trie_t *trie) {
 }
 
 trie_t *trie_navigate_recursive(trie_t *trie, char *string, char *temporary) {
-    unsigned int matching_characters = strspn(trie->string, string);
-    if (matching_characters == 0) {
-        return NULL;
-    }
-
     if (strcmp(trie->string, string) == 0) {
         return trie;
     }
 
-    trie_t *result;
+    trie_t *result = NULL;
+    unsigned int matching_characters = strspn(trie->string, string);
     for(int i = 0; i < trie->children; i++) {
-        if(strspn(trie->next[i]->string, string) == 0){
-            continue;
+        if(strspn(trie->next[i]->string, string) != 0) {
+            size_t i1 = strlen(string) - matching_characters;
+            strncpy(temporary, &string[matching_characters], i1);
+            temporary[i1] = '\0';
         }
-        size_t i1 = strlen(string) - matching_characters;
-        strncpy(temporary, &string[matching_characters], i1);
-        temporary[i1] = '\0';
         result = trie_navigate_recursive(trie->next[i], temporary, temporary);
-        return result;
+        if(result != NULL){
+            break;
+        }
     }
-    return NULL;
+    return result;
 }
 
 trie_t *trie_navigate(trie_t *trie, char *string) {

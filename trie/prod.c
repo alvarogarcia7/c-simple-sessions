@@ -52,10 +52,10 @@ void trie_add(trie_t *trie, char *string) {
         trie->children = 0;
         return;
     }
-    unsigned int matching_characters = strspn(trie->string, string);
     if (str_contained_in(string, trie->string)) {
         //need to split trie
         char *first_part, *second_part;
+        unsigned int matching_characters = strspn(trie->string, string);
         split_by_length(&first_part, &second_part, trie->string, matching_characters);
         trie->string = first_part;
         trie->children++;
@@ -64,12 +64,14 @@ void trie_add(trie_t *trie, char *string) {
         trie->next[0] = next;
     } else if (str_contained_in(trie->string, string)) {
         //need to go deeper
+        unsigned int matching_characters = strspn(trie->string, string);
         char *second_part = str_select_from(string, matching_characters);
         insert_at_child_if_possible(trie, second_part) || insert_as_another_child(trie, second_part);
     } else if (str_nothing_in_common(trie->string, string)) {
         turn_current_into_a_child_then_insert_another_child(trie, string);
     } else if (str_shared_prefix(string, trie->string)) {
         //need to split trie
+        unsigned int matching_characters = strspn(trie->string, string);
         char *shared_part = str_substring(trie->string, 0, matching_characters);
         char *rest_of_first = str_select_from(trie->string, matching_characters);
         char *second_part = str_select_from(string, matching_characters);

@@ -40,9 +40,18 @@ trie_with_two_values_at_the_top_level() {
     trie_t *trie = trie_new();
     trie_add(trie, "a");
     trie_add(trie, "b");
-    munit_assert_size(trie_size(trie), ==, 3);
+    munit_assert_size(trie_size(trie), ==, 2);
     munit_assert_not_null(trie_navigate(trie, "a"));
     munit_assert_not_null(trie_navigate(trie, "b"));
+    return MUNIT_OK;
+}
+
+static MunitResult
+only_elements_count_as_the_size() {
+    trie_t *trie = trie_new();
+    trie_add(trie, "a");
+    trie_add(trie, "b");
+    munit_assert_size(trie_size(trie), ==, 2);
     return MUNIT_OK;
 }
 
@@ -121,6 +130,7 @@ static MunitTest tests[] = {
         {(char *) "empty trie",                             empty_trie_has_size_0,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "add 1 element",                          trie_with_a_value_has_a_single_node,           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "two elements at the top level",          trie_with_two_values_at_the_top_level,         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "only words count as the size",          only_elements_count_as_the_size,         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "add prefix element",                     trie_after_adding_a_prefix_has_two_nodes,      NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "navigate to the root",                   can_navigate_to_the_root_node,                 NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "navigate to the root after splitting",   navigate_to_the_root_after_splitting_the_trie, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},

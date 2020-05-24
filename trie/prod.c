@@ -28,7 +28,7 @@ trie_t *trie_new() {
 }
 
 uint32_t trie_size(trie_t *trie) {
-    uint32_t result = trie->string == NULL ? 0:1;
+    uint32_t result = trie->is_end_of_word ? 1 : 0;
     for (int i = 0; i < trie->children; i++) {
         result += trie_size(trie->next[i]);
     }
@@ -44,6 +44,7 @@ void trie_add(trie_t *trie, char *string) {
 //    Calculates the length of the initial segment of str1 which consists entirely of characters in str2.
     if (trie->string == NULL) {
         trie->string = string;
+        trie->is_end_of_word = true;
         trie->children = 0;
         return;
     }
@@ -67,6 +68,7 @@ void trie_add(trie_t *trie, char *string) {
         parent_turned_sibling0->next = trie->next;
 
         trie->next = calloc(2, sizeof(trie_t *));
+        trie->is_end_of_word = false;
         trie->string = "";
         trie->next[0] = parent_turned_sibling0;
         trie->next[1] = trie_new_with_value(string);
@@ -93,6 +95,7 @@ void trie_add(trie_t *trie, char *string) {
 
 trie_t *trie_new_with_value(char *string) {
     trie_t *result = trie_new();
+    result->is_end_of_word = true;
     result->string = string;
     return result;
 }

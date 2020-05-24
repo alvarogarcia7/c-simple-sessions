@@ -7,6 +7,7 @@
 typedef struct trie_t{
     char *string;
     uint8_t children;
+    bool is_end_of_word;
     struct trie_t **next;
 } trie_t;
 

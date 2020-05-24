@@ -6,8 +6,6 @@
 
 void print_with_prefix(int prefix, char *string);
 
-void append_as_child(trie_t *trie, char *string);
-
 trie_t **make_space_for_one_more_children(const trie_t *trie);
 
 void
@@ -147,16 +145,6 @@ void
 split_by_length(char **first_part, char **second_part, const char *string, unsigned int matching_characters) {
     (*first_part) = str_substring(string, 0, matching_characters);
     (*second_part) = str_select_from(string, matching_characters);
-}
-
-void append_as_child(trie_t *trie, char *string) {
-    trie_t **children = make_space_for_one_more_children(trie);
-    children[trie->children] = trie_new_with_value(string);
-    if (trie->next != NULL){
-        free((void *) trie->next);
-    }
-    trie->next = children;
-    trie->children++;
 }
 
 trie_t **make_space_for_one_more_children(const trie_t *trie) {

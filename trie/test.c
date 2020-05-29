@@ -47,6 +47,19 @@ trie_with_two_values_at_the_top_level() {
 }
 
 static MunitResult
+trie_with_three_values_at_the_top_level() {
+    trie_t *trie = trie_new();
+    trie_add(trie, "a");
+    trie_add(trie, "b");
+    trie_add(trie, "c");
+    munit_assert_size(trie_size(trie), ==, 3);
+    munit_assert_not_null(trie_navigate(trie, "a"));
+    munit_assert_not_null(trie_navigate(trie, "b"));
+    munit_assert_not_null(trie_navigate(trie, "c"));
+    return MUNIT_OK;
+}
+
+static MunitResult
 only_elements_count_as_the_size() {
     trie_t *trie = trie_new();
     trie_add(trie, "a");
@@ -128,8 +141,9 @@ can_have_multiple_children_and_levels() {
 static MunitTest tests[] = {
         {(char *) "canary",                                 canary_test,                                   NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "empty trie",                             empty_trie_has_size_0,                         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "add 1 element",                          trie_with_a_value_has_a_single_node,           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-        {(char *) "two elements at the top level",          trie_with_two_values_at_the_top_level,         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "1 element  at the top level",                          trie_with_a_value_has_a_single_node,           NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "2 elements at the top level",          trie_with_two_values_at_the_top_level,         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "3 elements at the top level",          trie_with_two_values_at_the_top_level,         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "only words count as the size",          only_elements_count_as_the_size,         NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "add prefix element",                     trie_after_adding_a_prefix_has_two_nodes,      NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "navigate to the root",                   can_navigate_to_the_root_node,                 NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},

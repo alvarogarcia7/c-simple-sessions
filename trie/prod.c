@@ -61,6 +61,7 @@ void trie_add(trie_t *trie, char *string) {
         trie->next = calloc(1, sizeof(trie_t *));
         trie->next[0] = next;
     } else if (str_contained_in(trie->string, string)) {
+        printf("%s, %s\n", string, trie->string);
         //need to go deeper
         unsigned int matching_characters = strspn(trie->string, string);
         char *second_part = str_select_from(string, matching_characters);
@@ -68,23 +69,24 @@ void trie_add(trie_t *trie, char *string) {
     } else if (str_nothing_in_common(trie->string, string)) {
         turn_current_into_a_child_then_insert_another_child(trie, string);
     } else if (str_shared_prefix(string, trie->string)) {
+//        printf("%s, %s\n", string, trie->string);
         //need to split trie
         unsigned int matching_characters = strspn(trie->string, string);
-        char *shared_part = str_substring(trie->string, 0, matching_characters);
-        char *rest_of_first = str_select_from(trie->string, matching_characters);
-        char *second_part = str_select_from(string, matching_characters);
-
 
         trie_t **previousNext = trie->next;
 
-        trie->string = shared_part;
+        char *shared_part = str_substring(trie->string, 0, matching_characters);
         trie->children = 2;
         trie->next = calloc(2, sizeof(trie_t *));
+        char *rest_of_first = str_select_from(trie->string, matching_characters);
         trie->next[0] = trie_new_with_value(rest_of_first);
         trie->next[0]->next = calloc(1, sizeof(trie_t *));
         trie->next[0]->next = previousNext;
 
+        char *second_part = str_select_from(string, matching_characters);
         trie->next[1] = trie_new_with_value(second_part);
+
+        trie->string = shared_part;
     }
 }
 

@@ -45,7 +45,8 @@ void trie_add(trie_t *trie, char *string) {
 //    size_t strspn(const char *str1, const char *str2)
 //    Calculates the length of the initial segment of str1 which consists entirely of characters in str2.
     if (trie->string == NULL) {
-        trie->string = string;
+        trie->string = calloc(strlen(string) + 1, sizeof(char));
+        strcpy(trie->string, string);
         trie->is_end_of_word = true;
         trie->children = 0;
         return;
@@ -61,7 +62,6 @@ void trie_add(trie_t *trie, char *string) {
         trie->next = calloc(1, sizeof(trie_t *));
         trie->next[0] = next;
     } else if (str_contained_in(trie->string, string)) {
-        printf("%s, %s\n", string, trie->string);
         //need to go deeper
         unsigned int matching_characters = strspn(trie->string, string);
         char *second_part = str_select_from(string, matching_characters);
@@ -106,7 +106,8 @@ void turn_current_into_a_child_then_insert_another_child(trie_t *trie, const cha
 trie_t *trie_new_with_value(const char *string) {
     trie_t *result = trie_new();
     result->is_end_of_word = true;
-    result->string = (char *)string;
+    result->string = calloc(strlen(string) + 1, sizeof(char));
+    strcpy(result->string, string);
     return result;
 }
 

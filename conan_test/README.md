@@ -4,12 +4,19 @@ Goal:
 
   * Manage the dependencies using [Conan Package Manager](https://conan.io/)
   * Remove uncertainty when using this setup for a professional project
+  
+## Pre-requisites
+
+  * `conan`
+  * `gcc` (a modern version)
+  * `cmake` (a modern version)
+  
+There is a setup in the Makefile that satisfies all these dependencies.
 
 ## Scope
 
 ### In and out of the container
 
-Warning: this project requires `conan`.
 If you are using it inside a docker container, you might need to execute the program through the container itself. 
 
 The reason is `cmake` (on the host) cannot find the folder with the dependencies.

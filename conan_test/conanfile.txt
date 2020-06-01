@@ -1,0 +1,7 @@
+[requires]
+libcurl/7.52.1@bincrafters/stable
+
+[generators]
+cmake
+
+[options]

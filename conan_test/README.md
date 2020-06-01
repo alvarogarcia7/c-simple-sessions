@@ -73,6 +73,29 @@ A sample execution:
 ]
 ```
 
+This has been tested on 2020-06-01, using:
+
+```bash
+➜  conan_test git:(master) ✗ uname -a
+Linux pc 5.4.0-31-generic #35-Ubuntu SMP Thu May 7 20:20:34 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+
+➜  conan_test git:(master) ✗ cmake --version
+cmake version 3.16.3
+```
+
+
+Inside the docker setup:
+```bash
+conan@4922c2a43073:~$ cmake --version
+cmake version 3.16.4
+
+conan@4922c2a43073:~$ gcc --version
+gcc (Ubuntu 9.2.1-9ubuntu2) 9.2.1 20191008
+
+conan@4922c2a43073:~$ conan --version
+Conan version 1.25.2
+```
+
 ## Source
 
 This is a CMake skeleton with unit tests.

@@ -103,6 +103,11 @@ conan@4922c2a43073:~$ conan --version
 Conan version 1.25.2
 ```
 
+## Links
+
+  * [Conan: getting started](https://docs.conan.io/en/latest/getting_started.html)
+  * [Conan: guide to getting started](https://blog.conan.io/2018/06/11/Transparent-CMake-Integration.html)
+
 ## Source
 
 This is a CMake skeleton with unit tests.

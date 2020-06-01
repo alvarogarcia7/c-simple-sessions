@@ -88,6 +88,11 @@ cmake version 3.16.3
 
 Inside the docker setup:
 ```bash
+make bash # Enter the docker container
+
+conan@4922c2a43073:~$ uname -a
+Linux 0a33bafad4a6 5.4.0-31-generic #35-Ubuntu SMP Thu May 7 20:20:34 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+
 conan@4922c2a43073:~$ cmake --version
 cmake version 3.16.4
 

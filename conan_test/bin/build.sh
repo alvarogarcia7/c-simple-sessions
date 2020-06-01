@@ -2,7 +2,8 @@
 
 set -euxo pipefail
 
-cd /app/build-docker
+cd /app/cmake-build-debug
 
-conan install .. --build libcurl
+cmake ..
+make all
 

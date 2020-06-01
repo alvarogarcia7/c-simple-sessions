@@ -5,6 +5,14 @@ Goal:
   * Manage the dependencies using [Conan Package Manager](https://conan.io/)
   * Remove uncertainty when using this setup for a professional project
 
+## Scope
+
+### In and out of the container
+
+Warning: this project requires `conan`.
+If you are using it inside a docker container, you might need to execute the program through the container itself. 
+
+The reason is `cmake` (on the host) cannot find the folder with the dependencies.
 
 ## Using it
 

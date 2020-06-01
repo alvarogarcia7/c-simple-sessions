@@ -41,6 +41,8 @@ make build
 make execute
 ```
 
+(Note: `make` goals can be concatenated)
+
 ### Successful execution
 
 This sample program queries the stargazers of Conan, using a GitHub's ReST API

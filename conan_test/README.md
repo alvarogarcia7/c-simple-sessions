@@ -103,6 +103,11 @@ conan@4922c2a43073:~$ conan --version
 Conan version 1.25.2
 ```
 
+## Variants
+
+  * To support a single library, see commit 558bd84d1d8919e1136f72b4638d003f69b82cb4
+  * To support multiple libraries (transparently), see commit fff079ed62ddfebea832dfec839a87bdf9b4e414
+
 ## Links
 
   * [Conan: getting started](https://docs.conan.io/en/latest/getting_started.html)

@@ -24,12 +24,13 @@ static void Test_number_15_is_translated_to_FizzBuzz(void **state)
 }
 
 /* A test case that does nothing and succeeds. */
-static void null_test_success(void **state) {
+static void canary_test(void **state) {
     (void) state; /* unused */
+    assert_int_equal(0, 0);
 }
 int main(void) {
     const struct CMUnitTest tests[] = {
-            cmocka_unit_test(null_test_success)
+            cmocka_unit_test(canary_test)
             , cmocka_unit_test(Test_number_15_is_translated_to_FizzBuzz)
             , cmocka_unit_test(Test_number_5_is_translated_to_Buzz)
             , cmocka_unit_test(Test_number_multiple_of_3_is_translated_to_Fizz)

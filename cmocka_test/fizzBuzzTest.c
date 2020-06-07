@@ -5,7 +5,7 @@
 
 #include "prod.h"
 
-void Test_number_multiple_of_3_is_translated_to_Fizz()
+static void Test_number_multiple_of_3_is_translated_to_Fizz()
 {
 	assert_string_equal("Fizz", fizzBuzz(6));
 	assert_string_equal("Fizz", fizzBuzz(3));
@@ -13,7 +13,7 @@ void Test_number_multiple_of_3_is_translated_to_Fizz()
 	assert_string_equal("Fizz", fizzBuzz(12));
 }
 
-void Test_number_5_is_translated_to_Buzz()
+static void Test_number_5_is_translated_to_Buzz()
 {
 	assert_string_equal("Buzz", fizzBuzz(5));
 }

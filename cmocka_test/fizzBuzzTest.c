@@ -29,10 +29,10 @@ static void null_test_success(void **state) {
 }
 int main(void) {
     const struct CMUnitTest tests[] = {
-            cmocka_unit_test(null_test_success),
-            cmocka_unit_test(Test_number_15_is_translated_to_FizzBuzz),
-            cmocka_unit_test(Test_number_5_is_translated_to_Buzz),
-            cmocka_unit_test(Test_number_multiple_of_3_is_translated_to_Fizz)
+            cmocka_unit_test(null_test_success)
+            , cmocka_unit_test(Test_number_15_is_translated_to_FizzBuzz)
+            , cmocka_unit_test(Test_number_5_is_translated_to_Buzz)
+            , cmocka_unit_test(Test_number_multiple_of_3_is_translated_to_Fizz)
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

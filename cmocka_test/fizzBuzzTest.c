@@ -13,10 +13,11 @@
 //	CuAssertStrEquals(tc, "Fizz", fizzBuzz(12));
 //}
 //
-//void Test_number_5_is_translated_to_Buzz(CuTest *tc)
-//{
-//	CuAssertStrEquals(tc, "Buzz", fizzBuzz(5));
-//}
+
+void Test_number_5_is_translated_to_Buzz()
+{
+	assert_string_equal("Buzz", fizzBuzz(5));
+}
 
 static void Test_number_15_is_translated_to_FizzBuzz(void **state)
 {
@@ -30,7 +31,8 @@ static void null_test_success(void **state) {
 int main(void) {
     const struct CMUnitTest tests[] = {
             cmocka_unit_test(null_test_success),
-            cmocka_unit_test(Test_number_15_is_translated_to_FizzBuzz)
+            cmocka_unit_test(Test_number_15_is_translated_to_FizzBuzz),
+            cmocka_unit_test(Test_number_5_is_translated_to_Buzz)
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

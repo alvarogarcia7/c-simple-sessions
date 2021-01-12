@@ -3,7 +3,7 @@
 #include <setjmp.h>
 #include <cmocka.h>
 
-#include "prod.h"
+#include "../prod.h"
 
 static void Test_number_multiple_of_3_is_translated_to_Fizz(void **state)
 {

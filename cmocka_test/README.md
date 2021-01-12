@@ -18,10 +18,7 @@ This session depends on CMocka. It needs to be compiled externally and included 
 This session has been (manually) tested on bef5c9cc280937053ba8b530d2fd0cf734aea4e0, using the following setup:
 
 ```bash
-find vendor/ -type f
-```
-
-```bash
+$ find vendor/ -type f
 vendor/cmocka/include/cmocka.h
 vendor/cmocka/libcmocka.so.0
 ```

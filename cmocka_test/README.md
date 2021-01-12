@@ -13,12 +13,14 @@ Goals:
 
 ## Library dependency
 
-This session depends on CMocka. It needs to be compiled externally and included in the project.
+This session depends on CMocka. It needs to be included.
 
-This session has been (manually) tested on bef5c9cc280937053ba8b530d2fd0cf734aea4e0, using the following setup:
+You can achieve this by running CMake.
+
+Either manually, or using CLion.
+
+Manually:
 
 ```bash
-$ find vendor/ -type f
-vendor/cmocka/include/cmocka.h
-vendor/cmocka/libcmocka.so.0
+make install-dependencies
 ```

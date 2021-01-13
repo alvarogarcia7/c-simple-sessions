@@ -24,3 +24,13 @@ Manually:
 ```bash
 make install-dependencies
 ```
+
+CLion:
+
+* Open the project, import the CMake configuration
+
+Checking the installation:
+
+* You should see a folder `_deps` inside your cmake build folder
+* If you run the tests (either manually or from CLion), 4 tests should pass.
+

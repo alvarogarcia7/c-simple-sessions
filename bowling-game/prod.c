@@ -15,3 +15,12 @@ char *fizzBuzz(int number)
     }
     return "Fizz";
 }
+
+int addition(int a, int b){
+    if(a > 100 && b > 100){
+        printf("Numbers should be smaller or equal to 100\n");
+        return 0;
+    } else {
+        return a + b;
+    }
+}

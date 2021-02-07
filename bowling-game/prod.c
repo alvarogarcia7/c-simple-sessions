@@ -8,6 +8,14 @@ int numberCharToInt(char input){
 }
 
 int score_calc(char *input){
+    // input = ['X']: how we model it
+    //           ^----0
+    //              ^---- 1
+    // input = ['X', '\0']: how it is in reality
+    //                 ^----1
+    if(input[0] == 'X'){
+        return 10;
+    }
     if (input[1] == '-') {
         return numberCharToInt(input[0]);
     } else if(input[1] == '/'){

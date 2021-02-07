@@ -1,15 +1,12 @@
-# Testing CMocka
+# Bowling game
 
-## Scope
+## Description
 
-Integrate a sample C program (fizzbuzz kata) with [CMocka](https://cmocka.org/)
+Practice the Kata of the Bowling game, in a mob-programming session.
 
-## Goals
+Tests are written with [CMocka](https://cmocka.org/).
 
-Goals:
-  * How to integrate with CMocka (using CMake, but no Conan)
-  * How easy it is write test cases
-  * How easy it is to adapt (automatically?) existing test cases to CMocka
+The session could be incomplete, as we'll develop it further.
 
 ## Library dependency
 

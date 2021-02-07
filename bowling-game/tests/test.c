@@ -19,11 +19,16 @@ static void score_when_the_second_is_a_miss(void **state){
     assert_int_equal(5, score_calc("5-"));
 }
 
+static void score_when_both_rolls_throw_pins(void **state){
+    assert_int_equal(6, score_calc("33"));
+}
+
 int main(void) {
     const struct CMUnitTest tests[] = {
             cmocka_unit_test(canary_test)
             , cmocka_unit_test(score_for_nine_pins_and_a_miss)
             , cmocka_unit_test(score_when_the_second_is_a_miss)
+            , cmocka_unit_test(score_when_both_rolls_throw_pins)
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

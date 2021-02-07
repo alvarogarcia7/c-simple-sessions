@@ -8,6 +8,7 @@ test:
 	./cmake-build-debug/tests/unit_tests
 
 install-dependencies:
+	mkdir cmake-build-debug || true
 	cmake -Bcmake-build-debug .
 	cmake -B cmake-build-debug --build cmake-build-debug --config Debug cmake-build-debug
 	$(MAKE) -Ccmake-build-debug all

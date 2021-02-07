@@ -8,8 +8,10 @@ int numberCharToInt(char input){
 }
 
 int score_calc(char *input){
-    if (input[1] == '-'){
+    if (input[1] == '-') {
         return numberCharToInt(input[0]);
+    } else if(input[1] == '/'){
+        return 10;
     } else {
         return numberCharToInt(input[0]) + numberCharToInt(input[1]);
     }

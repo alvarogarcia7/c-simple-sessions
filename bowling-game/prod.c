@@ -13,6 +13,9 @@ int score_calc(char *input){
     //              ^---- 1
     // input = ['X', '\0']: how it is in reality
     //                 ^----1
+
+    printf("Input length = %lu\n", strlen(input));
+
     if(input[0] == 'X'){
         return 10;
     }

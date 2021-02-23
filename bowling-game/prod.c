@@ -19,6 +19,9 @@ int score_calc(char *input){
     if(input[0] == 'X'){
         return 10;
     }
+    if(input[0] == '-' && input[1] == '-'){
+        return 0;
+    }
     if (input[1] == '-') {
         return numberCharToInt(input[0]);
     } else if(input[1] == '/'){

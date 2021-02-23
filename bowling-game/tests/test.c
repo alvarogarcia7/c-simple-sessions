@@ -24,6 +24,10 @@ static void score_when_spare(void **state){
     assert_int_equal(10, score_calc("6/"));
 }
 
+static void score_no_score(void **state){
+    assert_int_equal(0, score_calc("--"));
+}
+
 static void score_when_strike(void **state){
     assert_int_equal(10, score_calc("X"));
 }
@@ -33,6 +37,7 @@ int main(void) {
             cmocka_unit_test(canary_test)
             , cmocka_unit_test(score_when_the_second_is_a_miss)
             , cmocka_unit_test(score_when_both_rolls_throw_pins)
+            , cmocka_unit_test(score_no_score)
             , cmocka_unit_test(score_when_spare)
             , cmocka_unit_test(score_when_strike)
     };

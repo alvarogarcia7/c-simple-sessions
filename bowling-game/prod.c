@@ -23,8 +23,6 @@ int score_calc(char *input){
         if (input[1] == '-') {
             return 0;
         }
-        // 19 => 1/, score() = 10
-        // 18 => correct, score() = 9
         if (numberCharToInt(input[1]) >= 1 && numberCharToInt(input[1]) <= 9) {
             return numberCharToInt(input[1]);
         }

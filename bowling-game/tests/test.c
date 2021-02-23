@@ -21,6 +21,11 @@ static void score_when_both_rolls_throw_pins(void **state){
     //Format: [1stFrame:{1stThrow}{2ndThrow}][2nFrame:{1T}{2T}][3F{1T}{2T}]...[10F]
 }
 
+static void score_when_both_rolls_throw_pins_on_both_frames(void **state){
+    assert_int_equal(12, score_calc("3333"));
+    //Format: [1stFrame:{1stThrow}{2ndThrow}][2nFrame:{1T}{2T}][3F{1T}{2T}]...[10F]
+}
+
 static void score_when_spare(void **state){
     assert_int_equal(10, score_calc("6/"));
 }
@@ -46,6 +51,7 @@ int main(void) {
             , cmocka_unit_test(score_when_spare)
             , cmocka_unit_test(score_when_strike)
             , cmocka_unit_test(no_score_first_second_yes)
+            , cmocka_unit_test(score_when_both_rolls_throw_pins_on_both_frames)
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

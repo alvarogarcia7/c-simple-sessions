@@ -18,16 +18,14 @@ int score_calc(char *input){
 
     if(input[0] == 'X'){
         return 10;
-    }
-    if(input[0] == '-') {
+    } else if(input[0] == '-') {
         if (input[1] == '-') {
             return 0;
         }
         if (numberCharToInt(input[1]) >= 1 && numberCharToInt(input[1]) <= 9) {
             return numberCharToInt(input[1]);
         }
-    }
-    if (input[1] == '-') {
+    } else if (input[1] == '-') {
         return numberCharToInt(input[0]);
     } else if(input[1] == '/'){
         return 10;

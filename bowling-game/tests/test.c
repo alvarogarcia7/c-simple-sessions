@@ -18,6 +18,7 @@ static void score_when_the_second_is_a_miss(void **state){
 
 static void score_when_both_rolls_throw_pins(void **state){
     assert_int_equal(6, score_calc("33"));
+    //Format: [1stFrame:{1stThrow}{2ndThrow}][2nFrame:{1T}{2T}][3F{1T}{2T}]...[10F]
 }
 
 static void score_when_spare(void **state){
@@ -26,6 +27,10 @@ static void score_when_spare(void **state){
 
 static void score_no_score(void **state){
     assert_int_equal(0, score_calc("--"));
+}
+
+static void no_score_first_second_yes(void **state){
+    assert_int_equal(7, score_calc("-7"));
 }
 
 static void score_when_strike(void **state){
@@ -40,6 +45,7 @@ int main(void) {
             , cmocka_unit_test(score_no_score)
             , cmocka_unit_test(score_when_spare)
             , cmocka_unit_test(score_when_strike)
+            , cmocka_unit_test(no_score_first_second_yes)
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

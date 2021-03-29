@@ -38,6 +38,8 @@ This operation should have cost `O(1)`
 
 ### Extra 3: Allow repeated elements
 
+Difficulty: 2 out of 5
+
 The `add` function will also be used to add another copy of the same element.
 
 The `remove` function will be used to remove elements.

@@ -23,6 +23,27 @@ Difficulty: 3 out of 5
 
 Expand the session to hold any data type, so the UBST can hold any type inside (e.g., long, bool, struct).
 
+### Extra 2: Information about levels up and down
+
+Difficulty: 2 out of 5
+
+Expand the session so I can check how many levels up or down are available, from a node.
+
+Example: In tree 1 -> 2, after finding node 2:
+
+  * Levels above: 1
+  * Levels below: 0
+
+This operation should have cost `O(1)`
+
+### Extra 3: Allow repeated elements
+
+The `add` function will also be used to add another copy of the same element.
+
+The `remove` function will be used to remove elements.
+
+When `find`, also return the number of copies that are available in the tree.
+
 ## [ubst_search] Searching in an Unbalanced Binary Search Tree
 
 Prerequisites: ubst

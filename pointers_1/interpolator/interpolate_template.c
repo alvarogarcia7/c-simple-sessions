@@ -3,7 +3,7 @@
 
 void build_and_print_output(FILE *output, FILE *input);
 
-int safe_close(FILE **pFile);
+int safe_close(FILE **file_ptr);
 
 #define HYDRATE_TEMPLATE_CLEANUP \
 safe_close(&output) \
@@ -52,12 +52,12 @@ cleanup_and_fail:
     return -1;
 }
 
-int safe_close(FILE **output) {
-    if (*output != NULL) {
-        if(-1 == fclose(*output)) {
+int safe_close(FILE **file_ptr) {
+    if (*file_ptr != NULL) {
+        if(-1 == fclose(*file_ptr)) {
             return -1;
         }
-        *output = NULL;
+        *file_ptr = NULL;
     }
     return 0;
 }

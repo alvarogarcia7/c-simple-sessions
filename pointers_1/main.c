@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-#include "prod.h"
 
 #include "by_name.h"
 

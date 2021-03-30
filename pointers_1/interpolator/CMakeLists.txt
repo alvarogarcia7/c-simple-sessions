@@ -4,15 +4,14 @@ cmake_minimum_required(VERSION 3.5)
 project(project)
 
 # Add an library for the example classes
-add_library(prod_lib
-        prod.c
+add_library(interpolator_lib
+        interpolate_template.c
         )
 
-add_executable(prod
+add_executable(interpolator
         main.c
         )
-target_link_libraries(prod
-        prod_lib
+target_link_libraries(interpolator
+        interpolator_lib
         )
 
-add_subdirectory(interpolator)

@@ -1,3 +1,6 @@
 cmake-*/
 !tests/
 
+## Generated files
+by_name.h
+main_lines.txt

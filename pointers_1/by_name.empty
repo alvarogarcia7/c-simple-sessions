@@ -13,7 +13,6 @@
 
 void *find_function(char *function_name) {
     if(false) {} // so all the cases are in else if
-    @
     printf("Cannot find function name '%s'\n", function_name);
     return NULL;
 }

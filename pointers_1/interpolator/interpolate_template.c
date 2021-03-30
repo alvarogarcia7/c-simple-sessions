@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 void build_and_print_output(const FILE *output, const FILE *input);
 
@@ -26,20 +27,14 @@ int hydrate_template(char *output_path, char *template_path, char *main_lines_pa
         goto cleanup_and_fail;
     }
 
-
     char *line = NULL;
     size_t len = 0;
     ssize_t read;
 
     while ((read = getline(&line, &len, template)) != -1) {
-        bool found = false;
-        for (int i = 0; i < read; ++i) {
-            if (line[i] == '@') {
-                found = true;
-                build_and_print_output(output, main_lines);
-            }
-        }
-        if (!found) {
+        if (strstr(line, "@")) {
+            build_and_print_output(output, main_lines);
+        } else {
             fprintf(output, "%s", line);
         }
     }

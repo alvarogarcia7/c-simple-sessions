@@ -26,3 +26,12 @@ void main_echo(int argc, char **argv) {
     }
 }
 
+char x[] = "This string is declared externally";
+void main_10_14(int argc, char **argv) {
+
+    static char y[] = "This string is declared within main";
+
+    printf("externally: %s\n", x);
+    printf("internally: %s\n", y);
+}
+

@@ -20,6 +20,7 @@ main_lines: prod.h
 
 clean-main-functions:
 	rm -f ./by_name.h
+	rm -f main_lines.txt
 	cp ./by_name.empty ./by_name.h
 .PHONY: clean-main-functions
 

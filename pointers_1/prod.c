@@ -26,12 +26,24 @@ void main_echo(int argc, char **argv) {
     }
 }
 
-char x[] = "This string is declared externally";
+static char x[] = "This string is declared externally";
 void main_10_14(int argc, char **argv) {
 
-    static char y[] = "This string is declared within main";
+    char y[] = "This string is declared within main";
 
-    printf("externally: %s\n", x);
-    printf("internally: %s\n", y);
+    printf("externally: %s, its address: %p\n", x, &x);
+    printf("internally: %s, its address: %p\n", y, &y);
+
+    // Both static:
+    /*
+externally: This string is declared externally, its address: 0x108ada080
+internally: This string is declared within main, its address: 0x108ada050
+     */
+
+    // One static, one local
+    /*
+externally: This string is declared externally, its address: 0x102808060
+internally: This string is declared within main, its address: 0x7ffeed3f9930
+     */
 }
 

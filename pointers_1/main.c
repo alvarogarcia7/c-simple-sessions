@@ -1,16 +1,10 @@
 #include <stdio.h>
 
-int main(){
-    // Gottfried - Programming in C
-    // Chapter 10 - Pointers
-    // Example 10.12
-    static int x[10] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+#include "prod.h"
 
-    for (int i = 0; i < 10; ++i) {
-        /* display an array element */
-        printf("\ni= %d x[i]= %d *(x+i)= %d", i, x[i], *(x + i));
+#include "by_name.h"
 
-        /* display the corresponding array address */
-        printf("   &x[i]= %p  x+i= %p", &x[i], (x + i));
-    }
+int main(int argc, char **argv) {
+    void (*ptr)(int, char **) = find_function(argv[1]);
+    ptr(argc - 1, (argv + 1));
 }

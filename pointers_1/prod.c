@@ -1,5 +1,7 @@
 #include "prod.h"
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 /* main */
 void main_10_12(int argc, char **argv) {
@@ -67,3 +69,51 @@ void main_10_18(int argc, char **argv) {
     printf("Is it the same? %s", number_of_positions == difference_by_pointers ? "true" : "false");
 }
 
+void main_10_25(int argc, char **argv) {
+    printf("AS 2D ARRAY:\n");
+    // The limit of this approach is that all strings must have the same length: some content might be empty / some content not fitting
+    // The benefit is that the memory is automatically managed
+    char names_as_2d_array[3][12];
+
+    strcpy((char *) names_as_2d_array, "PACIFIC");
+    strcpy((char *) names_as_2d_array[1], "ATLANTIC");
+    char *pString = names_as_2d_array[2];
+    strcpy(pString, "CARIBBEAN");
+
+    for (int i = 0; i < 3; ++i) {
+        printf("'%s'\n", names_as_2d_array[i]);
+    }
+
+    printf("-----\n");
+    printf("AS CHAR_POINTER ARRAY:\n");
+
+    char *names_as_charpointer_array[4];
+    names_as_charpointer_array[0] = calloc(12, sizeof(char));
+    names_as_charpointer_array[1] = calloc(20, sizeof(char));
+    names_as_charpointer_array[2] = calloc(4, sizeof(char));
+    names_as_charpointer_array[3] = calloc(15, sizeof(char));
+
+    // Using array syntax
+    strcpy(names_as_charpointer_array[0], "BERING");
+
+    // Using complicated syntax
+    strcpy(*(&(*names_as_charpointer_array)+1), "BLACK");
+
+    // Using char ** variable
+    // Simplify the above syntax
+    char **array_pointer = names_as_charpointer_array;
+    strcpy(*(array_pointer + 2), "RED");
+
+    names_as_charpointer_array[3][0] = '_';
+    // Using pointer arithmetic at two levels (expect `_MEDITERRANIAN`)
+    strcpy(*(names_as_charpointer_array + 3)+1, "MEDITERRANIAN");
+
+    for (int i = 0; i < 4; ++i) {
+        printf("'%s'\n", names_as_charpointer_array[i]);
+    }
+
+    free(names_as_charpointer_array[0]);
+    free(names_as_charpointer_array[1]);
+    free(names_as_charpointer_array[2]);
+    free(names_as_charpointer_array[3]);
+}

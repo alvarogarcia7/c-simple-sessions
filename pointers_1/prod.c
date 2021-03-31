@@ -47,3 +47,23 @@ internally: This string is declared within main, its address: 0x7ffeed3f9930
      */
 }
 
+
+void main_10_18(int argc, char **argv) {
+    int *px, *py; /* integer pointers */
+    static int a[6] = {1, 2, 3, 4, 5, 6};
+
+    px = &a[0];
+    py = &a[5];
+
+    printf("px=%p, py=%p\n", px, py);
+    unsigned long difference_by_pointers = py - px;
+    printf("as pointers: py-px=%ld\n", difference_by_pointers);
+
+    unsigned long difference_in_bytes = ((size_t)py - (size_t )px);
+    printf("Difference in bytes: %lu bytes\n", difference_in_bytes);
+    printf("Size of int = %ld bytes\n", sizeof(int));
+    unsigned long number_of_positions = difference_in_bytes / sizeof(int);
+    printf("%lu / %ld = %lu positions\n", difference_in_bytes, sizeof(int ), number_of_positions);
+    printf("Is it the same? %s", number_of_positions == difference_by_pointers ? "true" : "false");
+}
+

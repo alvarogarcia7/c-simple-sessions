@@ -4,5 +4,5 @@
 #include <string.h>
 
 int sum(int *array, int length){
-    return -1;
+    return 0;
 }

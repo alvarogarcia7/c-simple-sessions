@@ -3,14 +3,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+int sum_r(int result, int *array, int remaining_length){
+    if(0 == remaining_length){
+        return result;
+    }
+    return sum_r(result + array[0], &array[1], remaining_length - 1);
+}
+
 int sum(int *array, int length) {
-    int result = 0;
-    if (length > 0) {
-        result += array[0];
-    }
-    if (length > 1) {
-        result += array[1];
-    }
-    return result;
+    return sum_r(0, array, length);
 }
 

@@ -11,6 +11,11 @@ static void test_sum_empty_array(void **state){
     assert_int_equal(0, sum(array, length));
 }
 
+static void test_sum_array_one_element(void **state){
+    int array[] = {2};
+    int length = sizeof(array) / sizeof(int);
+    assert_int_equal(2, sum(array, length));
+}
 
 /* A test case that does nothing and succeeds. */
 static void canary_test(void **state) {
@@ -21,6 +26,7 @@ int main(void) {
     const struct CMUnitTest tests[] = {
             cmocka_unit_test(canary_test)
             , cmocka_unit_test(test_sum_empty_array)
+            , cmocka_unit_test(test_sum_array_one_element)
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

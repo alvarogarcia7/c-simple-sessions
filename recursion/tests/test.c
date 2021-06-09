@@ -8,19 +8,25 @@
 static void test_sum_empty_array(void **state) {
     int array[] = {};
     int length = sizeof(array) / sizeof(int);
-    assert_int_equal(0, sum(array, length));
+    int expected = 0;
+    assert_int_equal(expected, sum(array, length));
+    assert_int_equal(expected, reduce(&sum_operator, array, length));
 }
 
 static void test_sum_array_one_element(void **state) {
     int array[] = {2};
     int length = sizeof(array) / sizeof(int);
-    assert_int_equal(2, sum(array, length));
+    int expected = 2;
+    assert_int_equal(expected, sum(array, length));
+    assert_int_equal(expected, reduce(&sum_operator, array, length));
 }
 
 static void test_sum_array_two_elements(void **state) {
     int array[] = {2, 3};
     int length = sizeof(array) / sizeof(int);
-    assert_int_equal(5, sum(array, length));
+    int expected = 5;
+    assert_int_equal(expected, sum(array, length));
+    assert_int_equal(expected, reduce(&sum_operator, array, length));
 }
 
 static void test_subtract_empty_array(void **state) {

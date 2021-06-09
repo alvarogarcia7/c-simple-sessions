@@ -1,7 +1,4 @@
 #include "prod.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 int sum_r(int result, int *array, int remaining_length){
     if(0 == remaining_length){

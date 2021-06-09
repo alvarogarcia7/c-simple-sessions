@@ -117,3 +117,65 @@ void main_10_25(int argc, char **argv) {
     free(names_as_charpointer_array[2]);
     free(names_as_charpointer_array[3]);
 }
+
+void main_10_27(int argc, char **argv){
+
+    static char *names[2] = {
+            "PACIFIC",
+            "ATLANTIC"
+    };
+    char *names_ptr = names[0];
+    static char x;
+    static char *p = &x;
+
+    for (int i = 0; i < 2; ++i) {
+        printf("'%s', length=%lu\n", names[i], strlen(names[i]));
+    }
+
+    printf("Size of array: %lu\n", sizeof(names)/sizeof(char *));
+    printf("Next: %p, %p\n", p, names_ptr);
+    printf("Diff: %lu\n", ((size_t) p - (size_t) names_ptr));
+
+}
+
+void func_a1(double a[static 1]) {
+    printf("%f\n", a[1]);
+}
+
+void func_an(size_t n, double a[n]) {
+    printf("%f\n", a[2]);
+}
+
+typedef struct {
+    int f;
+    int g;
+} toto;
+
+toto *toto_init(toto *toto_x) {
+    *toto_x = (toto){0};
+    toto_x->f = 1;
+    return toto_x;
+}
+
+void main_mc_15_1(int argc, char **argv) {
+    double a[2] = {15.0, 16.0};
+/*
+[ 25%] Building C object CMakeFiles/prod_lib.dir/prod.c.o
+prod.c:147:5: warning: null passed to a callee that requires a non-null argument [-Wnonnull]
+    func_a1(NULL); //This produces a compiler warning
+    ^       ~~~~
+prod.c:141:21: note: callee declares array parameter as static here
+void func_a1(double a[static 1]) {
+                    ^~~~~~~~~~~
+1 warning generated.
+*/
+//    func_a1(NULL); //This produces a compiler warning
+
+    func_a1(&a[1]);
+
+    func_an(2, a);
+
+    toto t;
+    t = *toto_init(&t);
+    printf("%d, %d\n", t.f, t.g);
+}

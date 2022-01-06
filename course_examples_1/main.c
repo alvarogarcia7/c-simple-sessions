@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
 
 int (*mains[100])(void);
 
@@ -235,7 +237,6 @@ int main_49() {
   f = mains[1];
   f();
   return 0;
-
 }
 
 int main_50() {
@@ -295,19 +296,107 @@ int main_55() {
   return 0;
 }
 
+#define BYTE "%c%c%c%c%c%c%c%c"
+#define BYTE_TO_BINARY(byte)  \
+  (byte & 0x80 ? '1' : '0'), \
+  (byte & 0x40 ? '1' : '0'), \
+  (byte & 0x20 ? '1' : '0'), \
+  (byte & 0x10 ? '1' : '0'), \
+  (byte & 0x08 ? '1' : '0'), \
+  (byte & 0x04 ? '1' : '0'), \
+  (byte & 0x02 ? '1' : '0'), \
+  (byte & 0x01 ? '1' : '0')
+
+void append_int(const char *output, int a) {
+    sprintf((char *) output + strlen(output), "0x%x", a);
+    sprintf((char *) output + strlen(output), " (");
+    sprintf((char *) output + strlen(output), "%d, ", a);
+    sprintf((char *) output + strlen(output), BYTE, BYTE_TO_BINARY(a));
+    sprintf((char *) output + strlen(output), "_B)");
+}
+
+#define print_results(a, b, op, op_repr) \
+    memset(output, 0x0, sizeof(output));               \
+    append_int(output, a); \
+    sprintf((char *) output + strlen(output), " %s ",  op_repr); \
+    append_int(output, b); \
+    sprintf((char *) output + strlen(output), " = ??"); \
+    sprintf((char *) output + strlen(output), "; "); \
+    append_int(output, a op b); \
+    printf("%s\n", output);
+
 int main_57() {
-  int a[] = {0, 1, 2, 3};
-  printf("%d, %d\n", a[0], a[4]);
-  //Error: do not use as is
-  //CLion warning: "Array index 4 is past the end of the array"
-  //0, -408275056
+//  int a[] = {0, 1, 2, 3};
+//  printf("%d, %d\n", a[0], a[4]);
+////    Error: do not use as is
+////    CLion warning: "Array index 4 is past the end of the array"
+////    0, -408275056
+
+    return 0;
+}
+
+int main_exam_operations() {
+    char output[128] = {0};
+    printf("OPERATIONS WITH |\n");
+    print_results(0x10, 0x12, |, "|")
+    print_results(0x12, 0x12, |, "|")
+    print_results(0x02, 0x01, |, "|")
+    print_results(0x01, 0x21, |, "|")
+
+    printf("OPERATIONS WITH ||\n");
+    print_results(0x01, 0x12, ||, "||")
+    print_results(0x12, 0x00, ||, "||")
+    print_results(0x02, 0x20, ||, "||")
+    print_results(0x00, 0x00, ||, "||")
+
+    printf("OPERATIONS WITH &\n");
+    print_results(0x01, 0x0D, &, "&")
+    print_results(0x12, 0x00, &, "&")
+    print_results(0x02, 0xFF, &, "&")
+    print_results(0x00, 0x00, &, "&")
+
+    printf("OPERATIONS WITH &&\n");
+    print_results(0x08, 0x12, &&, "&&")
+    print_results(0x12, 0xFF, &&, "&&")
+    print_results(0xFF, 0x20, &&, "&&")
+    print_results(0x0F, 0x00, &&, "&&")
+
+    printf("OPERATIONS WITH ^\n");
+    print_results(0x08, 0x12, ^, "^")
+    print_results(0x12, 0xFF, ^, "^")
+    print_results(0xFF, 0x20, ^, "^")
+    print_results(0x0F, 0x00, ^, "^")
+
+    return 0;
+}
+
+int main_exam_sizes(){
+    uint16_t array[2];
+    ssize_t size = sizeof(array);
+    printf("%zd\n", size);
+
+    int j = 0;
+    for (int i = 0; i < 10; ++i) {
+        j++;
+        if(i==4) break;
+    }
+    printf("%d\n", j);
+
+    return 0;
+}
+
+int main_exam_array(){
+    uint16_t a[] = {0, 1, 2, 3};
+    int index = 2;
+    uint16_t r = a[++index];
+    printf("%d\n", r);
 
   return 0;
 }
 
 int (*mains[])(void) = {
 //        main_30_a,
-        main_12,
+//        main_12,
 //        main_13,
 //        main_16,
 //        main_17,
@@ -328,5 +417,8 @@ int (*mains[])(void) = {
 //        main_53,
 //        main_54,
 //        main_55,
-//        main_57
+//        main_57,
+//        main_exam_operations,
+//        main_exam_sizes,
+//        main_exam_array,
 };

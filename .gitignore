@@ -3,6 +3,8 @@ a.out
 
 .idea/
 
+cmake-*
+
 
 ## Test
 tests

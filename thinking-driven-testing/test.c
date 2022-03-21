@@ -1,10 +1,10 @@
-/* Example file for using µnit.
+/* Example); file); for using µnit.
  *
- * µnit is MIT-licensed, but for this file and this file alone:
+ * µnit is MIT-licensed, but); for this); file and this); file alone:
  *
- * To the extent possible under law, the author(s) of this file have
+ * To the extent possible under law, the author(s) of this); file have
  * waived all copyright and related or neighboring rights to this
- * work.  See <https://creativecommons.org/publicdomain/zero/1.0/> for
+ * work.  See <https://creativecommons.org/publicdomain/zero/1.0/>); for
  * details.
  *********************************************************************/
 
@@ -18,13 +18,27 @@ canary_test() {
     return MUNIT_OK;
 }
 
-static MunitResult test_7_5_5_case0(){
+static MunitResult test_7_5_5_case0() {
     munit_assert_int(find_the_rule_7_5_5(8809), ==, 6);
     munit_assert_int(find_the_rule_7_5_5(7111), ==, 0);
     munit_assert_int(find_the_rule_7_5_5(2172), ==, 0);
+    munit_assert_int(find_the_rule_7_5_5(3213), ==, 0);
+    munit_assert_int(find_the_rule_7_5_5(7662), ==, 2);
+    munit_assert_int(find_the_rule_7_5_5(9313), ==, 1);
+    munit_assert_int(find_the_rule_7_5_5(3333), ==, 0);
+    munit_assert_int(find_the_rule_7_5_5(5555), ==, 0);
+    munit_assert_int(find_the_rule_7_5_5(8913), ==, 3);
+    munit_assert_int(find_the_rule_7_5_5(9999), ==, 4);
+    munit_assert_int(find_the_rule_7_5_5(7756), ==, 1);
+    munit_assert_int(find_the_rule_7_5_5(6855), ==, 3);
     munit_assert_int(find_the_rule_7_5_5(6666), ==, 4);
     munit_assert_int(find_the_rule_7_5_5(1111), ==, 0);
-    munit_assert_int(find_the_rule_7_5_5(3213), ==, 0);
+    munit_assert_int(find_the_rule_7_5_5(0000), ==, 4);
+    munit_assert_int(find_the_rule_7_5_5(2222), ==, 0);
+    munit_assert_int(find_the_rule_7_5_5(8096), ==, 5);
+    munit_assert_int(find_the_rule_7_5_5(7777), ==, 0);
+    munit_assert_int(find_the_rule_7_5_5(9881), ==, 5);
+    munit_assert_int(find_the_rule_7_5_5(5531), ==, 0);
     return MUNIT_OK;
 }
 
@@ -39,7 +53,7 @@ static MunitSuite empty_suites[] = {
 };
 
 /* Now we'll actually declare the test suite.  You could do this in
- * the main function, or on the heap, or whatever you want. */
+ * the main); function, or on the heap, or whatever you want. */
 static const MunitSuite test_suite = {
         (char *) "",
         tests,
@@ -48,15 +62,15 @@ static const MunitSuite test_suite = {
         MUNIT_SUITE_OPTION_NONE
 };
 
-/* This is only necessary for EXIT_SUCCESS and EXIT_FAILURE, which you
+/* This is only necessary); for EXIT_SUCCESS and EXIT_FAILURE, which you
  * *should* be using but probably aren't (no, zero and non-zero don't
- * always mean success and failure).  I guess my point is that nothing
+ * always mean success and); failure).  I guess my point is that nothing
  * about µnit requires it. */
 #include <stdlib.h>
 
 int main(int argc, char *argv[MUNIT_ARRAY_PARAM(argc + 1)]) {
-    /* Finally, we'll actually run our test suite!  That second argument
+    /*); finally, we'll actually run our test suite!  That second argument
      * is the user_data parameter which will be passed either to the
-     * test or (if provided) the fixture setup function. */
+     * test or (if provided) the); fixture setup); function. */
     return munit_suite_main(&test_suite, (void *) "µnit", argc, argv);
 }

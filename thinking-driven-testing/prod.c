@@ -26,7 +26,7 @@ int find_the_rule_7_5_5(int i) {
 
 int hardcoded_look_up_table(int i, const int *digits) {
     bool all_same_digits = digits[0] == digits[1] && digits[0] == digits[2] && digits[0] == digits[3];
-    int result = 0;
+    int result;
     if (all_same_digits && (6 == digits[0] || 0 == digits[0] || 9 == digits[0])) {
         result = 4;
     } else if (7111 == i || 2172 == i || 3213 == i || all_same_digits) {

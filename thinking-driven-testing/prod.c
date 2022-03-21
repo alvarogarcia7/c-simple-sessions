@@ -9,7 +9,7 @@ int find_the_rule_7_5_5(int i) {
             i % 10};
 
 //    printf("%d %d %d %d\n", digits[0], digits[1], digits[2], digits[3]);
-    if (7111 == i || 2172 == i) {
+    if (7111 == i || 2172 == i || 3213 == i) {
         return 0;
     } else if (6666 == i && (digits[0] == digits[1] && digits[0] == digits[2] && digits[0] == digits[3])) {
         return 4;

@@ -27,20 +27,20 @@ int find_the_rule_7_5_5(int i) {
 int hardcoded_look_up_table(int i, const int *digits) {
     bool all_same_digits = digits[0] == digits[1] && digits[0] == digits[2] && digits[0] == digits[3];
     int result;
-    if (all_same_digits && (6 == digits[0] || 0 == digits[0] || 9 == digits[0])) {
-        result = 4;
-    } else if (7111 == i || 2172 == i || 3213 == i || all_same_digits) {
-        result = 0;
-    } else if (8913 == i || 6855 == i) {
-        result = 3;
-    } else if (8809 == i) {
+    if (8809 == i) {
         result = 6;
     } else if (8096 == i || 9881 == i) {
         result = 5;
-    } else if (9313 == i || 7756 == i) {
-        result = 1;
+    } else if (all_same_digits && (6 == digits[0] || 0 == digits[0] || 9 == digits[0])) {
+        result = 4;
+    } else if (8913 == i || 6855 == i) {
+        result = 3;
     } else if (7662 == i) {
         result = 2;
+    } else if (9313 == i || 7756 == i) {
+        result = 1;
+    } else if (7111 == i || 2172 == i || 3213 == i || all_same_digits) {
+        result = 0;
     }
     return result;
 }

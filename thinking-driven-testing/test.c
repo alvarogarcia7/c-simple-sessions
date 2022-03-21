@@ -43,6 +43,11 @@ static MunitResult test_7_5_5_case4(){
     return MUNIT_OK;
 }
 
+static MunitResult test_7_5_5_case5(){
+    munit_assert_int(find_the_rule_7_5_5(3213), ==, 0);
+    return MUNIT_OK;
+}
+
 static MunitTest tests[] = {
         {(char *) "canary", canary_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "7.5.5_case0", test_7_5_5_case0, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
@@ -50,6 +55,7 @@ static MunitTest tests[] = {
         {(char *) "7.5.5_case2", test_7_5_5_case2, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "7.5.5_case3", test_7_5_5_case3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {(char *) "7.5.5_case4", test_7_5_5_case4, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+        {(char *) "7.5.5_case5", test_7_5_5_case5, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
         {NULL, NULL,                     NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
 };
 

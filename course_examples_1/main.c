@@ -305,9 +305,89 @@ int main_57() {
   return 0;
 }
 
+int main_58() {
+    int a[] = {0, 1, 2, 3};
+    int array_size = sizeof(a) / sizeof(a[0]);
+
+    int x = 0;
+
+    for (int i = 0; i < array_size; i++) {
+        x += a[i];
+    }
+
+    printf("X = %d\n", x);
+    return 0;
+}
+
+int main_59() {
+    int a[] = {0, 1, 2, 3};
+    int array_size = sizeof(a) / sizeof(a[0]);
+
+    int x = 0;
+
+    for (int i = 0; i < array_size; i++) {
+        if (0 == x % 2) {
+            x += a[i];
+        }
+    }
+
+    printf("X = %d\n", x);
+    return 0;
+}
+
+int main_60() {
+    int a[] = {0, 1, 2, 3};
+    int array_size = sizeof(a) / sizeof(a[0]);
+
+    int x = 0;
+
+    for (int i = 0; i < array_size; i++) {
+        if ((0 == a[i] % 2) && (x < 10)) {
+            x += a[i];
+        }
+    }
+
+    printf("X = %d\n", x);
+    return 0;
+}
+
+int main_61() {
+    int a[] = {0, 1, 2, 3};
+    int array_size = sizeof(a) / sizeof(a[0]);
+
+    int x = 0;
+
+    for (int i = 0; i < array_size; i++) {
+        if (x>=10){
+            break;
+        }
+        if (0 == a[i] % 2) {
+            x += a[i];
+        }
+    }
+
+    printf("X = %d\n", x);
+    return 0;
+}
+
+int main_62() {
+    int a[] = {0, 1};
+    int array_size = sizeof(a) / sizeof(a[0]);
+
+    int already_found = 0;
+    int x = 0;
+    int i;
+    for (i = 0; i < array_size; i+=2) {
+        x+=a[i];
+    }
+
+    printf("i = %d\n", i);
+    return 0;
+}
+
 int (*mains[])(void) = {
 //        main_30_a,
-        main_12,
+//        main_12,
 //        main_13,
 //        main_16,
 //        main_17,
@@ -329,4 +409,10 @@ int (*mains[])(void) = {
 //        main_54,
 //        main_55,
 //        main_57
+//main_58,
+//main_59,
+//main_60,
+//main_61,
+//main_62,
+        main_62
 };
